@@ -1,6 +1,5 @@
 @table-border-color: #999;
 @cell-border-color: #eee;
-
 .ng-table {
     th {
         text-align: center;
@@ -10,70 +9,52 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
-
         &.sortable {
             cursor: pointer;
-
+            position: relative;
             .sort-indicator {
                 padding-right: 18px;
                 position: relative;
-
-                &:after, &:before {
-                    content: "";
-                    border-width: 0 4px 4px;
-                    border-style: solid;
-                    border-color: #000 transparent;
-                    visibility: visible;
-                    right: 5px;
-                    top: 50%;
-                    position: absolute;
-                    opacity: .3;
-                    margin-top: -4px;
-                }
-                &:before {
-                    margin-top: 2px;
-                    border-bottom: none;
-                    border-left: 4px solid transparent;
-                    border-right: 4px solid transparent;
-                    border-top: 4px solid #000;
-                }
             }
-
-            .sort-indicator:hover:after, .sort-indicator:hover:before {
+            &:hover button span {
                 opacity: 1;
-                visibility: visible;
             }
-            &.sort-desc, &.sort-asc {
+            button {
+                border: none;
+                background: none;
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                font-size: .75em;
+                &:hover span {
+                    opacity: 1;
+                }
+                span {
+                    opacity: .3;
+                }
+            }
+            &.sort-desc,
+            &.sort-asc {
+                button span {
+                    opacity: 1;
+                }
+            }
+            &.sort-desc button {
+                span.glyphicon-triangle-top {
+                    display: none;
+                }
+                span.glyphicon-triangle-bottom {
+                    right: 0;
+                }
+            }
+            &.sort-asc button span.glyphicon-triangle-bottom {
+                display: none;
+            }
+            &.sort-desc,
+            &.sort-asc {
                 background-color: rgba(141, 192, 219, 0.25);
                 text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
-
-                .sort-indicator:after {
-                    margin-top: -2px;
-                }
-                .sort-indicator:before {
-                    visibility: hidden;
-                }
-            }
-            &.sort-asc .sort-indicator:after, &.sort-asc .sort-indicator:hover:after {
-                visibility: visible;
-                filter: alpha(opacity=60);
-                -khtml-opacity: 0.6;
-                -moz-opacity: 0.6;
-                opacity: 0.6;
-            }
-            &.sort-desc .sort-indicator:after {
-                border-bottom: none;
-                border-left: 4px solid transparent;
-                border-right: 4px solid transparent;
-                border-top: 4px solid #000;
-                visibility: visible;
-                -webkit-box-shadow: none;
-                -moz-box-shadow: none;
-                box-shadow: none;
-                filter: alpha(opacity=60);
-                -khtml-opacity: 0.6;
-                -moz-opacity: 0.6;
-                opacity: 0.6;
             }
         }
         &.filter {
@@ -88,7 +69,6 @@
             }
         }
     }
-
     .ng-table-group-header {
         th {
             text-align: left;
@@ -131,7 +111,6 @@
                 &.ng-table-filters {
                     th {
                         padding: 0;
-
                         form > div {
                             padding: 8px;
                         }
@@ -146,16 +125,19 @@
             padding-left: 50%;
             white-space: normal;
             text-align: left;
-
             &:before {
                 content: attr(data-title-text);
             }
         }
-        &, thead, tbody, th, td, tr {
+        &,
+        thead,
+        tbody,
+        th,
+        td,
+        tr {
             display: block;
         }
     }
-
     .ng-table-pager {}
     .ng-table-counts {}
 }

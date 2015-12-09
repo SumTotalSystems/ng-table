@@ -14,5 +14,9 @@
             <span ng-bind="$column.title(this)" ng-class="{'sort-indicator': params.settings().sortingIndicator == 'span'}"></span>
         </div>
         <div ng-if="template" ng-include="template"></div>
+		<button role="button">
+             <span class="glyphicon glyphicon-triangle-top"><span class="sr-only">Asc</span></span>
+             <span class="glyphicon glyphicon-triangle-bottom"><span class="sr-only">Desc</span></span>
+         </button>
     </th>
 </tr>
