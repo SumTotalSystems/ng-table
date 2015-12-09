@@ -7,6 +7,10 @@ Code licensed under New BSD License.
 This directive allow to liven your tables. It support sorting, filtering and pagination.
 Header row with titles and filters automatic generated on compilation step.
 
+## SumTotal Systems, LLC, a Skillsoft Company
+
+This is a modified fork (starting at tag v0.4.3) of the [**ng-table** codebase](http://www.ng-table.com) [(GitHub.com)](https://github.com/esvit/ng-table). Our modifications will be placed here for license compliance. Please send any questions to [Mike Gardner](mailto:mgardner@sumtotalsystems.com).
+
 ## Compatibility
 
 For work in IE < 9 need jQuery, just add:
