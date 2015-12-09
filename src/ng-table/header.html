@@ -1,16 +1,15 @@
 <tr>
-    <th ng-repeat="column in $columns"
-        ng-class="{
+    <th ng-repeat="column in $columns" ng-class="{
                     'sortable': parse(column.sortable),
                     'sort-asc': params.sorting()[parse(column.sortable)]=='asc',
                     'sort-desc': params.sorting()[parse(column.sortable)]=='desc'
-                  }"
-        ng-click="sortBy(column, $event)"
-        ng-show="column.show(this)"
-        ng-init="template = column.headerTemplateURL(this)"
-        class="header {{column.class}}">
+                  }" ng-click="sortBy(column, $event)" ng-show="column.show(this)" ng-init="template = column.headerTemplateURL(this)" class="header {{column.class}}">
         <div ng-if="!template" ng-show="!template" ng-bind="parse(column.title)"></div>
         <div ng-if="template" ng-show="template" ng-include="template"></div>
+        <button role="button">
+            <span class="glyphicon glyphicon-triangle-top"><span class="sr-only">Asc</span></span>
+            <span class="glyphicon glyphicon-triangle-bottom"><span class="sr-only">Desc</span></span>
+        </button>
     </th>
 </tr>
 <tr ng-show="show_filter" class="ng-table-filters">
