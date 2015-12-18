@@ -9,6 +9,9 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
+        > button {
+            display: none;
+        }
         &.sortable {
             cursor: pointer;
             position: relative;
@@ -23,6 +26,7 @@
                 border: none;
                 background: none;
                 position: absolute;
+                display: inherit;
                 top: 0;
                 right: 0;
                 bottom: 0;
