@@ -7,7 +7,7 @@
   -ms-user-select: none;
   user-select: none;
 }
-.ng-table th > button {
+.ng-table th button.asc-desc-container {
   display: none;
 }
 .ng-table th.sortable {
