@@ -52,7 +52,7 @@ app.directive('ngTable', ['$compile', '$q', '$parse',
                         };
                     };
 
-                    var parsedTitle = parsedAttribute('title', ' '),
+                    var parsedTitle = parsedAttribute('title', ''),
                         headerTemplateURL = parsedAttribute('header', false),
                         filter = parsedAttribute('filter', false)(),
                         filterTemplateURL = false,
