@@ -4,9 +4,9 @@
                     'sort-asc': params.sorting()[parse(column.sortable)]=='asc',
                     'sort-desc': params.sorting()[parse(column.sortable)]=='desc'
                   }" ng-show="column.show(this)" ng-init="template = column.headerTemplateURL(this)" class="header {{column.class}}" role="columnheader">
-        <div ng-click="sortBy(column, $event)">
-            <div ng-if="!template" ng-show="!template" ng-bind="parse(column.title)"></div>
-            <div ng-if="template" ng-show="template" ng-include="template"></div>
+        <div ng-if="template || parse(column.title)" ng-click="sortBy(column, $event)">
+            <div ng-if="!template" ng-bind="parse(column.title)"></div>
+            <div ng-if="template" ng-include="template"></div>
             <button class="asc-desc-container" tabindex="-1">
                 <span class="glyphicon glyphicon-triangle-top"><span class="sr-only">Asc</span></span>
                 <span class="glyphicon glyphicon-triangle-bottom"><span class="sr-only">Desc</span></span>
