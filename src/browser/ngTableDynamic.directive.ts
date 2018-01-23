@@ -8,10 +8,15 @@
 
 import { IAugmentedJQuery, IDirective, IScope } from 'angular';
 import * as ng1 from 'angular';
-import { IColumnDef, IDynamicTableColDef, ITableController, ITableInputAttributes } from './public-interfaces';
+import { ColumnDef, DynamicTableColDef, DynamicTableHtmlAttributes } from './public-interfaces';
+import { NgTableController } from './ngTableController';
 
-interface IScopeExtensions {
-    $columns: IColumnDef[]
+interface ScopeExtensions {
+    $columns: ColumnDef[]
+}
+
+function toArray<T>(arr: ArrayLike<T>) {
+    return Array.prototype.slice.call(arr) as T[];
 }
 
 ngTableDynamic.$inject = [];
@@ -30,50 +35,45 @@ ngTableDynamic.$inject = [];
  * </table>
  * ```
  */
-export function ngTableDynamic () : IDirective{
+export function ngTableDynamic(): IDirective {
 
     return {
         restrict: 'A',
         priority: 1001,
         scope: true,
         controller: 'ngTableController',
-        compile: function(tElement: IAugmentedJQuery) {
-            var row: IAugmentedJQuery;
+        compile: function (tElement: IAugmentedJQuery) {
 
-            // IE 8 fix :not(.ng-table-group) selector
-            ng1.forEach(tElement.find('tr'), function(tr) {
-                tr = ng1.element(tr);
-                if (!tr.hasClass('ng-table-group') && !row) {
-                    row = tr;
-                }
-            });
-            if (!row) {
+            const tRows = toArray(tElement[0].getElementsByTagName('tr'));
+            const tRow = tRows.filter(tr => !ng1.element(tr).hasClass('ng-table-group'))[0];
+
+            if (!tRow) {
                 return undefined;
             }
 
-            ng1.forEach(row.find('td'), function(item) {
-                var el = ng1.element(item);
-                var getAttrValue = function(attr: string){
+            toArray(tRow.getElementsByTagName('td')).forEach(tCell => {
+                const el = ng1.element(tCell);
+                const getAttrValue = (attr: string) => {
                     return el.attr('x-data-' + attr) || el.attr('data-' + attr) || el.attr(attr);
                 };
 
                 // this used in responsive table
-                var titleExpr = getAttrValue('title');
-                if (!titleExpr){
+                const titleExpr = getAttrValue('title');
+                if (!titleExpr) {
                     el.attr('data-title-text', '{{$columns[$index].titleAlt(this) || $columns[$index].title(this)}}');
                 }
-                var showExpr = el.attr('ng-if');
-                if (!showExpr){
+                const showExpr = el.attr('ng-if');
+                if (!showExpr) {
                     el.attr('ng-if', '$columns[$index].show(this)');
                 }
             });
-            return function (scope: IScope & IScopeExtensions, element: IAugmentedJQuery, attrs: ITableInputAttributes, controller: ITableController) {
-                var expr = controller.parseNgTableDynamicExpr(attrs.ngTableDynamic);
+            return function (scope: IScope & ScopeExtensions, element: IAugmentedJQuery, attrs: DynamicTableHtmlAttributes, controller: NgTableController<any, DynamicTableColDef>) {
+                const expr = controller.parseNgTableDynamicExpr(attrs.ngTableDynamic);
 
                 controller.setupBindingsToInternalScope(expr.tableParams);
                 controller.compileDirectiveTemplates();
 
-                scope.$watchCollection<IDynamicTableColDef[]>(expr.columns, function (newCols/*, oldCols*/) {
+                scope.$watchCollection<DynamicTableColDef[]>(expr.columns, (newCols/*, oldCols*/) => {
                     scope.$columns = controller.buildColumns(newCols);
                     controller.loadFilterData(scope.$columns);
                 });

@@ -29,20 +29,9 @@
             { name: "Enos", age: 34 }
         ];
 
-        this.tableParams = new NgTableParams({
-            page: 1,
-            count: 7,
-            sort: { name: 'asc' }
-        }, {
-                // for server-side data load
-                // getData: function (params) {
-                //     params.total(data.length);
-                //     return data.slice((params.page() - 1) * params.count(), params.page() * params.count());
-                // }
-
-                // for clientside data
-                dataset: data
-            });
+        this.tableParams = new NgTableParams({}, {
+            dataset: data
+        });
     }
 
 })();

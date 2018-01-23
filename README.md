@@ -1,11 +1,63 @@
 Table + AngularJS
 =================
 [![Build Status](https://travis-ci.org/esvit/ng-table.svg)](https://travis-ci.org/esvit/ng-table) [![Coverage Status](https://coveralls.io/repos/esvit/ng-table/badge.png)](https://coveralls.io/r/esvit/ng-table)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 Code licensed under New BSD License.
 
-This directive allow to liven your tables. It support sorting, filtering and pagination.
-Header row with titles and filters automatic generated on compilation step.
+This directive enhances your HTML tables. It support sorting, filtering and pagination.
+Header row with titles and filters automatic generated.
+
+
+## Installing
+
+**NPM**
+
+Install the current stable release:
+```
+npm install ng-table --save
+```
+Or install the latest beta release:
+```
+npm install ng-table@next --save
+```
+
+**note: when to use `next`?** see this [issue-comment](https://github.com/esvit/ng-table/issues/953#issuecomment-270905068)
+
+**CDN**
+
+You can download the distribution files directly from [unpkg](https://unpkg.com/ng-table/bundles/)
+
+**Bower**: NO LONGER SUPPORTED
+
+
+## Getting started
+
+Please follow the getting started steps [here](http://ng-table.com/)
+
+
+## Examples
+
+* [Demo site](http://ng-table.com/)
+* Sample apps:
+    * [ES5](demo-apps/es5/readme.md)
+    * [ES2015 + SystemJS](demo-apps/es6-systemjs/readme.md)
+    * [ES2015 + Webpack](demo-apps/es6-webpack/readme.md)
+    * [Typescript + Webpack](demo-apps/ts-webpack/readme.md)
+* Codepen examples (**Tip**: fork these to create your own examples);
+    * [`ngTable`: inmemory list](http://codepen.io/christianacca/pen/VLqVeo?editors=101)
+    * [`ngTable`: server-side list](http://codepen.io/christianacca/pen/VLqqjP?editors=101)
+    * [`ngTableDynamic`: inmemory list](http://codepen.io/christianacca/pen/jPxgzY?editors=101)
+    * [`ngTableDynamic`: server-side list](http://codepen.io/christianacca/pen/JdwwrR/?editors=101)
+
+
+## Using Typescript?
+
+As of v2.0.0 ngTable is written in typescript and so you do NOT have to install external type declarations for this library.
+
+By installing the [ng-table package from npm](https://www.npmjs.com/package/ng-table), you will get typescript intellisense for all ng-table exported types.
+
+**WARNING:**. The type definitions on [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/ng-table) are depreciated.
 
 
 ## Upgrading from an earlier version?
@@ -15,8 +67,11 @@ Header row with titles and filters automatic generated on compilation step.
 It's recommended to upgrade in two jumps:
 
 1. Upgrade to version 1.0.0-beta.9, making any changes to your application code neccessary to work with this version
+    * EG: `bower install ng-table#1.0.0-beta.9 --save`
 2. Refactor your application to remove any code that depended on depreciated behaviours that where removed in the 1.0.0 release
 3. Install 1.0.0 (should now be a drop in replacement for 1.0.0-beta.9)
+    * Bower: `bower install ng-table#1.0.0 --save`
+    * NPM: `npm i ng-table@1.0.0 --save`
 
 
 ### Upgrade from version earlier than 0.8.3
@@ -28,71 +83,8 @@ It's recommended to upgrade in three jumps:
 3. Follow the guide above to upgrade from 0.8.3 -> 1.0.0-beta.9 -> 1.0.0
 
 **Tips**
-* To install an earlier version of ng-table (1.0.0-beta.9 in this case): `bower install ng-table#1.0.0-beta.9 --save`
-* Read the [CHANGELOG.md](CHANGELOG.md). Each release details the breaking changes and migration guidance
+* Read the notes in [github releases](https://github.com/esvit/ng-table/releases). Each release details the breaking changes and migration guidance
 
-
-
-## Installing
-
-**NPM**
-```
-npm install ng-table --save
-```
-
-## Using Typescript?
-
-Install the type definition files for ng-table:
-```
-typings install github:christianacca/typed-ng-table/typings.json#930b5a14174e594d6167691ed0938be42a6b06aa --global --save
-```
-**WARNING:**. The type definitions on [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/ng-table) 
-and [@types/ng-table](https://www.npmjs.com/package/@types/ng-table) are depreciated.
-
-
-## Development
-We use Karma to ensure the quality of the code. The easiest way to run these checks is to use `npm test`:
-
-```sh
-npm install
-npm test
-```
-
-
-## Configuring ng-table
-For a list of configuration options available, see [examples website](http://ng-table.com/)
-
-
-## Updates
-
-See CHANGELOG.md
-
-## Submitting an issue
-
-Please be responsible, the open source community is not there to guess your problem or to do your job. When submitting an issue try as much as possible to:
-
-1. search in the already existing issues or on [stackoverflow](http://stackoverflow.com/questions/tagged/ngtable?sort=newest&pageSize=30) if your issue has not been raised before.
-
-2. give a precise description mentionning angular version, ng-table version.
-
-3. give a way to reproduce your issue, the best would be with a <strong>running example</strong>, you can use [plunkr](http://plnkr.co/), or [codepen](http://codepen.io/). **Tip:** See below for a list of base codepen's you can fork
-
-4. isolate your code sample on the probable issue to avoid pollution and noise.
-
-5. Close your issue when a solution has been found (and share it with the community)
-
-Note that 80% of the open issues are actually not issues but "problem" due to developpers laziness or lack of investigation. These "issues" are a waste of time for us and especially if we have to setup a sample to reproduce the issue which those developpers could have done. Any open issue which does not fulfill this contract will be closed without investigation.
-
-
-
-## Examples
-
-* [Demo site](http://ng-table.com/)
-* Codepen examples (**Tip**: fork these to create your own examples);
-    * [`ngTable`: inmemory list](http://codepen.io/christianacca/pen/VLqVeo?editors=101)
-    * [`ngTable`: server-side list](http://codepen.io/christianacca/pen/VLqqjP?editors=101)
-    * [`ngTableDynamic`: inmemory list](http://codepen.io/christianacca/pen/jPxgzY?editors=101)
-    * [`ngTableDynamic`: server-side list](http://codepen.io/christianacca/pen/JdwwrR/?editors=101)
 
 ## Compatibility
 
@@ -103,15 +95,22 @@ For work in IE < 9 need jQuery, just add:
 <![endif]-->
 ```
 
-## Plugins
 
-* [Export to CSV](https://github.com/esvit/ng-table-export)
+## Building from sources
 
-#### PS
-Let me know if you are using **ng-table**. It will motivate me to work harder.
-And if you like **ng-table**, just email me and add your website [here](http://bazalt-cms.com/ng-table/who-is-using)
-Hope you like it, Thanks! :)
+1. Clone: `git clone https://github.com/esvit/ng-table.git`
+2. Install: `npm install` 
+3. Build: `npm run build:full`
+
+* To locally build and serve docs site: `npm run doc && npm run serve:docs-site`
+* To locally serve the demo: `npm run serve:demo`
+
+
+## Want to contribute?
+
+See the [contributing](CONTRIBUTING.md) guidelines.
 
 ---
 
 This project is part of [Bazalt CMS](http://bazalt-cms.com/).
+

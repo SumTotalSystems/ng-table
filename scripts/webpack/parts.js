@@ -19,8 +19,8 @@ function createParts(rootDir, env) {
     function es6() {
         return {
             module: {
-                loaders: [
-                    { test: /\.js$/, loaders: ['babel?cacheDirectory'], exclude: /node_modules/ }
+                rules: [
+                    { test: /\.js$/, loaders: ['babel-loader?cacheDirectory'], exclude: /node_modules/ }
                 ]
             }
         }
@@ -29,8 +29,6 @@ function createParts(rootDir, env) {
     function prodOptimize() {
         return {
             plugins: [
-                // doesn't save anything in this small app. npm@3 mostly takes care of this
-                new webpack.optimize.DedupePlugin(),
                 new webpack.LoaderOptionsPlugin({
                     minimize: true,
                     debug: false,
@@ -69,7 +67,10 @@ function createParts(rootDir, env) {
                 },
                 // note: wanted to use eval-source-map to increase build times, but chrome would not stop on breakpoint
                 // therefore instead using source-map
-                devtool: 'source-map'
+                devtool: 'source-map',
+                performance: {
+                    hints: false
+                }
             };
         } else if (env.test) {
             return {
@@ -85,14 +86,18 @@ function createParts(rootDir, env) {
     function testCoverage() {
         return {
             module: {
-                postLoaders: [
+                rules: [
                     {
+                        enforce: 'post',
                         test: /\.ts$/,
                         exclude: [
                             /\.spec\.ts$/,
                             /node_modules/
                         ],
-                        loader: 'istanbul-instrumenter'
+                        loader: 'istanbul-instrumenter-loader',
+                        query: {
+                            esModules: true
+                        }
                     }
                 ]
             }
@@ -104,14 +109,14 @@ function createParts(rootDir, env) {
         return {
             // Currently we need to add '.ts' to the resolve.extensions array.
             resolve: {
-                extensions: ['', '.ts', '.tsx', '.js', '.jsx']
+                extensions: ['.ts', '.tsx', '.js', '.jsx']
             },
             module: {
-                loaders: [
+                rules: [
                     {
                         test: /\.ts$/,
                         exclude: /node_modules/,
-                        loader: `awesome-typescript?tsconfig=${tsconfigPath}`
+                        loaders: [`awesome-typescript-loader?tsconfig=${tsconfigPath}`, 'angular1-template-loader']
                     }
                 ]
             }

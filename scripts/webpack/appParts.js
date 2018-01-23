@@ -15,23 +15,30 @@ function createAppParts(rootDir, env = {}) {
     };
 
     const isDevServer = process.argv.find(v => v.indexOf('webpack-dev-server') !== -1);
+    const loadCssWithSourceMaps = ['css-loader?sourceMap', 'resolve-url-loader', 'sass-loader?sourceMap'];
+    const loadCss = ['css-loader', 'resolve-url-loader', 'sass-loader?sourceMap'];
+
+    const isNodeModuleSelector = (function () {
+        const isNodeModule = new RegExp('node_modules');
+        return (module) => isNodeModule.test(module.resource);
+    })();
 
     return Object.assign({}, commonParts, {
         asAppBundle,
+        extractBundle,
         extractSassChunks,
         inlineImages,
         inlineHtmlTemplates,
         inlineNgTableHtmlTemplates,
         isDevServer,
+        isNotAppModuleSelector,
         sass,
         useHtmlPlugin
     });
 
     /////
 
-
     function asAppBundle() {
-        const isNodeModule = new RegExp('node_modules');
 
         const common = merge(
             {
@@ -40,20 +47,7 @@ function createAppParts(rootDir, env = {}) {
                     filename: '[name].[chunkhash].js',
                     // This is used for require.ensure if/when we want to use it
                     chunkFilename: '[chunkhash].js'
-                },
-                plugins: [
-                    // include node_modules requested in a seperate bundle
-                    new webpack.optimize.CommonsChunkPlugin({
-                        name: 'vendor',
-                        minChunks: module => isNodeModule.test(module.resource)
-                    }),
-                    // extract webpack manifest file into it's own chunk to ensure vendor hash does not change 
-                    // (as per solution discussed here https://github.com/webpack/webpack/issues/1315)
-                    new webpack.optimize.CommonsChunkPlugin({
-                        name: 'manifest',
-                        minChunks: Infinity
-                    })
-                ]
+                }
             },
             devServer()
         );
@@ -100,6 +94,27 @@ function createAppParts(rootDir, env = {}) {
         };
     }
 
+    function extractBundle({ vendorSelector = isNodeModuleSelector } = {}) {
+        return {
+            plugins: [
+                // include node_modules requested in a seperate bundle
+                new webpack.optimize.CommonsChunkPlugin({
+                    name: 'vendor',
+                    minChunks: vendorSelector
+                }),
+                // extract webpack manifest file into it's own chunk to ensure vendor hash does not change 
+                // (as per solution discussed here https://github.com/webpack/webpack/issues/1315)
+                new webpack.optimize.CommonsChunkPlugin({
+                    name: 'manifest',
+                    minChunks: Infinity
+                })
+            ]
+        }
+    }
+
+    function isNotAppModuleSelector(module) {
+        return !(module.resource && module.resource.startsWith(rootDir));
+    }
 
     function useHtmlPlugin() {
         var HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -114,10 +129,10 @@ function createAppParts(rootDir, env = {}) {
     function inlineImages(sizeLimit = 1024) {
         return {
             module: {
-                loaders: [
+                rules: [
                     {
                         test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
-                        loader: `url?limit=${sizeLimit}&name=[path][name]-[hash].[ext]`
+                        loader: `url-loader?limit=${sizeLimit}&name=[path][name]-[hash].[ext]`
                     }
                 ]
             }
@@ -127,10 +142,10 @@ function createAppParts(rootDir, env = {}) {
     function inlineHtmlTemplates() {
         return {
             module: {
-                loaders: [
+                rules: [
                     {
                         test: /\.html$/,
-                        loaders: ['ngtemplate?requireAngular&relativeTo=/src/&prefix=demo-app/', 'html'],
+                        loaders: ['ngtemplate-loader?requireAngular&relativeTo=/src/&prefix=demo-app/', 'html-loader'],
                         include: [
                             path.resolve(rootDir, 'src')
                         ],
@@ -144,10 +159,10 @@ function createAppParts(rootDir, env = {}) {
     function inlineNgTableHtmlTemplates() {
         return {
             module: {
-                loaders: [
+                rules: [
                     {
                         test: /ng-table[\/\\]src[\/\\].*\.html$/,
-                        loaders: ['ngtemplate?requireAngular&relativeTo=/src/browser/&prefix=ng-table/', 'html']
+                        loaders: ['ngtemplate-loader?requireAngular&relativeTo=/src/browser/&prefix=ng-table/', 'html-loader']
                     }
                 ]
             }
@@ -169,22 +184,22 @@ function createAppParts(rootDir, env = {}) {
 
     function _extractSass(files) {
         const extractor = new ExtractTextPlugin('[name].[chunkhash].css');
-        let loader;
+        let loaders;
         if (env.debug || env.prod) {
             // note: we CAN use source maps for *extracted* css files in a deployed website without 
             // suffering from the problem of image urls not resolving to the correct path
-            loader = 'css?sourceMap!resolve-url!sass?sourceMap';
+            loaders = loadCssWithSourceMaps;
         } else {
-            loader = 'css!resolve-url!sass?sourceMap';
+            loaders = loadCss;
         }
         return {
             module: {
-                loaders: [
+                rules: [
                     {
                         test: /\.scss$/,
                         loader: extractor.extract({
-                            fallbackLoader: 'style',
-                            loader: loader
+                            fallbackLoader: 'style-loader',
+                            loader: loaders
                         }),
                         include: files
                     }
@@ -203,17 +218,17 @@ function createAppParts(rootDir, env = {}) {
         // in this file for more details)
         let loaders;
         if ((env.debug || env.prod) && isDevServer) {
-            loaders = 'style!css?sourceMap!resolve-url!sass?sourceMap';
+            loaders = ['style-loader', ...loadCssWithSourceMaps];
         } else {
             // note: the 
-            loaders = 'style!css!resolve-url!sass?sourceMap';
+            loaders = ['style-loader', ...loadCss];
         }
         return {
             module: {
-                loaders: [
+                rules: [
                     {
                         test: /\.scss$/,
-                        loader: loaders,
+                        loaders: loaders,
                         exclude: [...excludeFiles]
                     }
                 ]

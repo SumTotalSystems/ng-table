@@ -1,45 +1,19 @@
-import { ITableParamsConstructor, INgTableParams } from 'ng-table';
+import { IComponentOptions } from 'angular';
+import { NgTableParams } from 'ng-table';
 
-const templateUrl = require('./my-table.component.html');
+import { demoData } from '../shared/demo-data';
+
+export class MyTableComponent implements IComponentOptions {
+    controller = MyTableController;
+    templateUrl = './my-table.component.html';
+}
+class MyTableController {
+    tableParams = new NgTableParams<Person>({}, {
+        dataset: demoData
+    });
+}
 
 interface Person {
     name: string;
     age: number;
 }
-
-class MyTableController {
-    tableParams: INgTableParams<Person>;
-    static $inject = ['NgTableParams'];
-    constructor(NgTableParams: ITableParamsConstructor<Person>) {
-        var data = [
-            { name: "Moroni", age: 50 },
-            { name: "Tiancum", age: 43 },
-            { name: "Jacob", age: 27 },
-            { name: "Nephi", age: 29 },
-            { name: "Enos", age: 34 },
-            { name: "Tiancum", age: 43 },
-            { name: "Jacob", age: 27 },
-            { name: "Nephi", age: 29 },
-            { name: "Enos", age: 34 },
-            { name: "Tiancum", age: 43 },
-            { name: "Jacob", age: 27 },
-            { name: "Nephi", age: 29 },
-            { name: "Enos", age: 34 },
-            { name: "Tiancum", age: 43 },
-            { name: "Jacob", age: 27 },
-            { name: "Nephi", age: 29 },
-            { name: "Enos", age: 34 }
-        ];
-
-        this.tableParams = new NgTableParams({}, {
-            dataset: data
-        });
-    }
-}
-
-const myTableComponent = {
-    templateUrl: templateUrl,
-    controller: MyTableController
-};
-
-export { myTableComponent };

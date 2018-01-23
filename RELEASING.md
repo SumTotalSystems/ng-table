@@ -1,24 +1,37 @@
 RELEASING
 ============
 
-1. Update [semver](http://semver.org/) version number in `package.json`
+## NPM package
 
-2. Minify source files: `npm run build:full`
+This library uses [semantic-release](https://github.com/semantic-release/semantic-release) 
+to fully automate publishing library updates to npm.
 
-3. Make the test pass: `npm test`
+All you need to do is ensure you follow the [contributing](CONTRIBUTING.md) guidelines.
 
-4. Update CHANGELOG.md: 
-    1. `node changelog.js n.n.n` where `n.n.n` is the version number used in step 1. above
-    2. copy-paste the generated text into the top of CHANGELOG.md
-    3. as required, modify the generated text pasted into CHANGELOG.md
+### NPM dist-tags
 
-5. Check in the following updated files to git:
-    - dist/*.*
-    - package.json
-    - CHANGELOG.md
+By default this new package version will be published with a [dist-tag](https://docs.npmjs.com/cli/dist-tag#purpose) of `next`
 
-6. Commit and push to master:
-    - use the commit message 'chore(release): n.n.n distribution files' where 'n.n.n' is the version number used in step 1
+Implications:
 
-7. Create a [github release](https://help.github.com/articles/creating-releases/) with same version used in steps above
-    - copy-paste the text just added to CHANGELOG.md as release notes
+* To install this version: `npm install ng-table@next --save`
+* To make this version available via `npm install ng-table --save`, a dist-tag of `latest` must be manually added (see steps below)
+
+#### Adding the `latest` dist-tag
+
+1. Open a command line
+2. Change directory: `cd path/to/ng-table`
+3. Login: `npm adduser`
+4. Add dist-tag: `npm dist-tag add ng-table@n.n.n latest`
+    * where `n.n.n` is the version of the package that you now want to make the latest
+5. Remove the pre-release tag from the github release of this version
+
+
+## Documentation
+
+To publish updates to the library documentation site:
+
+1. `npm run doc`
+    * this will re-generate the api-Docs
+2. `npm run doc-deploy`
+    * this will prublish the content of demo-site directory from this repo into the gh-pages branch

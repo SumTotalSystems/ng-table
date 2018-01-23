@@ -7,41 +7,47 @@
  */
 
 import { IScope } from 'angular';
-import { IFilterConfig, IFilterTemplateDef, IFilterTemplateDefMap } from './public-interfaces';
+import { FilterTemplateDef, FilterTemplateDefMap } from './public-interfaces';
+import { NgTableFilterConfig } from './ngTableFilterConfig';
 
 /**
  * @private
  */
-export interface IScopeExtensions {
-    config: IFilterConfig;
-    getFilterCellCss(filter: IFilterTemplateDefMap, layout: string): string;
-    getFilterPlaceholderValue(filterDef: string | IFilterTemplateDef, filterKey?: string): string;
+export interface ScopeExtensions {
+    getFilterPlaceholderValue(filterDef: string | FilterTemplateDef, filterKey?: string): string;
 }
-
-ngTableFilterRowController.$inject = ['$scope', 'ngTableFilterConfig'];
 
 /**
  * Controller for the {@link ngTableFilterRow ngTableFilterRow} directive
  */
-export function ngTableFilterRowController($scope: IScope & IScopeExtensions, ngTableFilterConfig: IFilterConfig){
+export class NgTableFilterRowController {
+    static $inject = ['$scope', 'ngTableFilterConfig'];
+    config: NgTableFilterConfig;
+    constructor($scope: IScope & ScopeExtensions, ngTableFilterConfig: NgTableFilterConfig) {
+        this.config = ngTableFilterConfig;
 
-    $scope.config = ngTableFilterConfig;
+        // todo: stop doing this. Why?
+        // * scope inheritance makes it hard to know how supplies functions
+        // * scope is not a concept in angular 2
+        // make function available to filter templates
+        $scope.getFilterPlaceholderValue = this.getFilterPlaceholderValue.bind(this);
+    }
 
-    $scope.getFilterCellCss = function (filter: IFilterTemplateDefMap, layout: string) {
+    getFilterCellCss(filter: FilterTemplateDefMap, layout: string) {
         if (layout !== 'horizontal') {
             return 's12';
         }
 
-        var size = Object.keys(filter).length;
-        var width = parseInt((12 / size).toString(), 10);
+        const size = Object.keys(filter).length;
+        const width = parseInt((12 / size).toString(), 10);
         return 's' + width;
-    };
+    }
 
-    $scope.getFilterPlaceholderValue = function(filterDef: string | IFilterTemplateDef, filterKey?: string){
+    getFilterPlaceholderValue(filterDef: string | FilterTemplateDef, filterKey?: string) {
         if (typeof filterDef === 'string') {
             return '';
         } else {
             return filterDef.placeholder;
         }
-    };
+    }
 }

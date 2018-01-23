@@ -6,7 +6,7 @@
  * @license New BSD License <http://creativecommons.org/licenses/BSD/>
  */
 
-var templateUrl = require('./filterRow.html');
+const templateUrl = require('./filterRow.html');
 
 ngTableFilterRow.$inject = [];
 
@@ -19,12 +19,13 @@ ngTableFilterRow.$inject = [];
  * ```
  */
 export function ngTableFilterRow(){
-    var directive = {
+    const directive = {
         restrict: 'E',
         replace: true,
         templateUrl: templateUrl,
         scope: true,
-        controller: 'ngTableFilterRowController'
+        controller: 'ngTableFilterRowController',
+        controllerAs: '$ctrl'
     };
     return directive;
 }

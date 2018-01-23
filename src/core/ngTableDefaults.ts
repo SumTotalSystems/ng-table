@@ -6,13 +6,23 @@
  * @license New BSD License <http://creativecommons.org/licenses/BSD/>
  */
 
-import { IDefaults } from './public-interfaces';
+import { ParamValuesPartial } from './ngTableParams';
+import { SettingsPartial } from './ngTableSettings';
+
+
+/**
+ * An angular value object that allow for overriding of the initial default values used when constructing
+ * an instance of `NgTableParams`
+ */
+export interface Defaults {
+    params?: ParamValuesPartial<any>;
+    settings?: SettingsPartial<any>
+}
 
 /**
  * Default values for ngTable
- * @ngdoc object
  */
-export var ngTableDefaults : IDefaults = {
+export let ngTableDefaults : Defaults = {
     params: {},
     settings: {}
 };

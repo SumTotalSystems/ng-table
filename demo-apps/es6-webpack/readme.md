@@ -7,10 +7,7 @@
 
 ## Running sample App
 
-1. cd demo-apps/webpack
-2. `npm install`
-3. `npm run setup:local`
-    * runs typescript compiler for ng-table
-    * in this app's node_modules, creates a symlink reference to your local ng-table on disk
-4. `npm start`
-    * runs webpack-dev-server to serve this app's index.html
+1. If you haven't already done so: `npm run setup`
+2. `demo-apps/es6-webpack` (this directory)
+3. `npm start`
+    * runs `webpack-dev-server` to serve this app's index.html
