@@ -123,6 +123,10 @@
 .ng-table-pagination {
   margin-top: 0; }
 
+.sortDescription {
+  margin-left: -9999px;
+  position: absolute; }
+
 .ng-table-pagination > li > button {
   position: relative;
   float: left;

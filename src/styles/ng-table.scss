@@ -163,6 +163,11 @@ $cell-border-color: #eee;
   margin-top: 0;
 }
 
+.sortDescription {
+	margin-left: -9999px;
+	position: absolute;
+}
+
 // Bootstrap overrides
 .ng-table-pagination > li > button {
   position: relative;

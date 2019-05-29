@@ -14,7 +14,9 @@ import { ITableScope } from './ngTableController';
  * @private
  */
 export interface IScopeExtensions {
+    sortDesc:any;	
     sortBy($column: IColumnDef, event: IAugmentedMouseEvent): void;
+	resetSortDesc($column: IColumnDef) : void;
 }
 
 /**
@@ -33,11 +35,12 @@ ngTableSorterRowController.$inject = ['$scope'];
 export function ngTableSorterRowController<T>($scope: ITableScope<T> & IScopeExtensions) {
 
     $scope.sortBy = sortBy;
-
+	$scope.resetSortDesc = resetSortDesc;
+    
     ///////////
 
     function sortBy($column: IColumnDef, event: IAugmentedMouseEvent) {
-        var parsedSortable = $column.sortable && $column.sortable();
+		var parsedSortable = $column.sortable && $column.sortable();
         if (!parsedSortable || typeof parsedSortable !== 'string') {
             return;
         } else {
@@ -49,7 +52,18 @@ export function ngTableSorterRowController<T>($scope: ITableScope<T> & IScopeExt
             $scope.params.parameters({
                 sorting: sortingParams
             });
+			
+			$scope.sortDesc = JSON.parse(JSON.stringify(sortingParams));
+			
+            if(sortingParams[parsedSortable] == 'asc')            
+            $scope.sortDesc[parsedSortable] = "Sort " + $column.title() + " in ascending order";
+            else if(sortingParams[parsedSortable] == 'desc')
+            $scope.sortDesc[parsedSortable] = "Sort " + $column.title() + " in descending order";  					
         }
 
     }
+	
+	function resetSortDesc($column: IColumnDef){
+		$scope.sortDesc = {};
+	}
 }
