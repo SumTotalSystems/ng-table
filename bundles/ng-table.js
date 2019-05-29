@@ -1339,6 +1339,7 @@ ngTableSorterRowController.$inject = ['$scope'];
  */
 function ngTableSorterRowController($scope) {
     $scope.sortBy = sortBy;
+    $scope.resetSortDesc = resetSortDesc;
     ///////////
     function sortBy($column, event) {
         var parsedSortable = $column.sortable && $column.sortable();
@@ -1354,7 +1355,15 @@ function ngTableSorterRowController($scope) {
             $scope.params.parameters({
                 sorting: sortingParams
             });
+            $scope.sortDesc = JSON.parse(JSON.stringify(sortingParams));
+            if (sortingParams[parsedSortable] == 'asc')
+                $scope.sortDesc[parsedSortable] = "Sort " + $column.title() + " in ascending order";
+            else if (sortingParams[parsedSortable] == 'desc')
+                $scope.sortDesc[parsedSortable] = "Sort " + $column.title() + " in descending order";
         }
+    }
+    function resetSortDesc($column) {
+        $scope.sortDesc = {};
     }
 }
 exports.ngTableSorterRowController = ngTableSorterRowController;
@@ -2433,7 +2442,7 @@ module.exports = path;
 /***/ function(module, exports, __webpack_require__) {
 
 var path = 'ng-table/sorterRow.html';
-var html = "<tr class=\"ng-table-sort-header\" role=\"row\">\r\n  <!--\r\n     In an effort to provide accessible tables, if a column is sortable it should be given the aria-sort attribute \r\n     with a value of 'none', 'ascending', or 'descending'. The child element should have its role set to 'button'\r\n  -->\r\n  <th scope=\"col\" title=\"{{$column.headerTitle(this)}}\" role=\"columnheader\" ng-attr-aria-sort=\"{{!$column.sortable(this) ? undefined : params.sorting()[$column.sortable(this)]=='asc' ? 'ascending' : params.sorting()[$column.sortable(this)]=='desc' ? 'descending' : 'none'}}\"\r\n    ng-repeat=\"$column in $columns\" ng-class=\"{ \r\n                    'sortable': $column.sortable(this),\r\n                    'sort-asc': params.sorting()[$column.sortable(this)]=='asc',\r\n                    'sort-desc': params.sorting()[$column.sortable(this)]=='desc'\r\n                  }\" ng-init=\"template = $column.headerTemplateURL(this)\" class=\"header {{$column.class(this)}}\" ng-if=\"$column.show(this)\">\r\n    <a role=\"button\" aria-describedby=\"sortDescription\" tabindex=\"0\" ng-if=\"$column.sortable(this) && (template || $column.title(this))\" ng-click=\"sortBy($column, $event)\"\r\n      ng-keydown=\"($event.key === 'Enter' || $event.key === ' ') && sortBy($column, $event)\" class=\"sort-button\">\r\n      <div ng-if=\"!template\" class=\"ng-table-header\" ng-class=\"{'sort-indicator': params.settings().sortingIndicator == 'div'}\">\r\n        <span ng-bind=\"$column.title(this)\" ng-class=\"{'sort-indicator': params.settings().sortingIndicator == 'span'}\"></span>\r\n\t\t<!-- Visually hidden element to be used for aria-describeby for sorting button -->\r\n\t\t<span id=\"sortDescription\" class=\"hidden\">Sort <span ng-if=\"params.sorting()[$column.sortable(this)]=='asc'\">in ascending </span><span ng-if=\"params.sorting()[$column.sortable(this)]=='desc'\">in descending </span>order</span>\r\n      </div>\r\n      <div ng-if=\"template\" ng-include=\"template\"></div>\r\n    </a>\r\n    <!--This header column is used for non-sortable columns.-->\r\n    <div ng-if=\"!$column.sortable(this) && (template || $column.title(this))\">\r\n      <div ng-if=\"!template\" class=\"ng-table-header\">\r\n        <span ng-bind=\"$column.title(this)\"></span>\r\n      </div>\r\n      <div ng-if=\"template\" ng-include=\"template\"></div>\r\n    </div>\r\n  </th>\r\n</tr>";
+var html = "<tr class=\"ng-table-sort-header\" role=\"row\">\r\n  <!--\r\n     In an effort to provide accessible tables, if a column is sortable it should be given the aria-sort attribute \r\n     with a value of 'none', 'ascending', or 'descending'. The child element should have its role set to 'button'\r\n  -->\r\n  <th scope=\"col\" title=\"{{$column.headerTitle(this)}}\" role=\"columnheader\" ng-attr-aria-sort=\"{{!$column.sortable(this) ? undefined : params.sorting()[$column.sortable(this)]=='asc' ? 'ascending' : params.sorting()[$column.sortable(this)]=='desc' ? 'descending' : 'none'}}\"\r\n    ng-repeat=\"$column in $columns\" ng-class=\"{ \r\n                    'sortable': $column.sortable(this),\r\n                    'sort-asc': params.sorting()[$column.sortable(this)]=='asc',\r\n                    'sort-desc': params.sorting()[$column.sortable(this)]=='desc'\r\n                  }\" ng-init=\"template = $column.headerTemplateURL(this)\" class=\"header {{$column.class(this)}}\" ng-if=\"$column.show(this)\">\r\n    <a role=\"button\" id=\"id_{{$index}}\" aria-describedby=\"sortDescription\" tabindex=\"0\" ng-if=\"$column.sortable(this) && (template || $column.title(this))\" ng-click=\"sortBy($column, $event)\"\r\n      ng-keydown=\"(($event.key === 'Enter' || $event.key === ' ') && sortBy($column, $event)) || ($event.keyCode == 9 && resetSortDesc($column))\" class=\"sort-button\">\r\n      <div ng-if=\"!template\" class=\"ng-table-header\" ng-class=\"{'sort-indicator': params.settings().sortingIndicator == 'div'}\">\r\n        <span ng-bind=\"$column.title(this)\" ng-class=\"{'sort-indicator': params.settings().sortingIndicator == 'span'}\"></span>\r\n\t\t<!-- Visually hidden element to be used for aria-describeby for sorting button -->\r\n\t\t<span class=\"sortDescription\" aria-hidden=\"false\" aria-live=\"polite\" ng-bind=\"sortDesc[$column.sortable(this)]\"></span>\t\r\n      </div>\r\n      <div ng-if=\"template\" ng-include=\"template\"></div>\r\n    </a>\r\n    <!--This header column is used for non-sortable columns.-->\r\n    <div ng-if=\"!$column.sortable(this) && (template || $column.title(this))\">\r\n      <div ng-if=\"!template\" class=\"ng-table-header\">\r\n        <span ng-bind=\"$column.title(this)\"></span>\r\n      </div>\r\n      <div ng-if=\"template\" ng-include=\"template\"></div>\r\n    </div>\r\n  </th>\r\n</tr>";
 var angular = __webpack_require__(/*! angular */ 0);
 angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 module.exports = path;
