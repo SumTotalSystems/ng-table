@@ -194,7 +194,8 @@ export function ngTableParamsFactory<T>(
         // wrapper for page() function so that focus can be
         // retained on the button that initiated the page change
         this.pageFocus = function (page: number, event: Event) {
-            this.pageButtonToRefocus = event.target;
+           // function can be removed after all references to it are removed and replaced with page()
+           // this.pageButtonToRefocus = event.target;
             return this.page(page);
         }
 

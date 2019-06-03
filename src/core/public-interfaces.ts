@@ -116,11 +116,6 @@ export interface InternalTableParams<T> extends INgTableParams<T> {
  * Parameters manager for an ngTable directive
  */
 export interface INgTableParams<T> {
-    /*
-       The pager button that should be refocused after a page change    
-   */
-    pageButtonToRefocus?: Element;
-
     /**
      * Returns a string value for the accessibility label
      */
@@ -418,8 +413,8 @@ export interface IPageButton {
  */
 export interface IParamValues<T> {
     /**
-      * The index of the "slice" of data rows, starting at 1, to be displayed by the table.
-      */
+     * The index of the "slice" of data rows, starting at 1, to be displayed by the table.
+     */
     page?: number;
     /**
      * The number of data rows per page

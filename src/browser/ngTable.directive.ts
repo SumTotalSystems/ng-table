@@ -45,6 +45,7 @@ export function ngTable($q: IQService, $parse: IParseService) : IDirective {
         scope: true,
         controller: 'ngTableController',
         compile: function(element: IAugmentedJQuery) {
+            element.attr('tabindex','-1');
             var columns: IColumnDef[] = [],
                 i = 0,
                 dataRow: IAugmentedJQuery,
