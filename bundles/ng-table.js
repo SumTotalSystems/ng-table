@@ -710,7 +710,7 @@ function ngTableController($scope, NgTableParams, $timeout, $parse, $compile, $a
         ngTableEventsChannel.onPagesChanged(function (params, newPages) {
             $scope.pages = newPages;
             $timeout(function () {
-                $element.focus();
+                $element[0].focus();
             });
         }, $scope, function (publisher) { return $scope.params === publisher; });
     }
