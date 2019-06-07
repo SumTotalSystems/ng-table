@@ -291,6 +291,9 @@ export function ngTableController<T>(
         ngTableEventsChannel.onPagesChanged<T>(
             (params, newPages) => {
                 $scope.pages = newPages;
+                $timeout(function () {
+                   $element[0].focus();
+                });
             },
             $scope,
             (publisher) => $scope.params === publisher
