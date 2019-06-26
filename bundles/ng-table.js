@@ -710,7 +710,10 @@ function ngTableController($scope, NgTableParams, $timeout, $parse, $compile, $a
         ngTableEventsChannel.onPagesChanged(function (params, newPages) {
             $scope.pages = newPages;
             $timeout(function () {
-                $element[0].focus();
+                var currentEl = document.activeElement;
+                if (currentEl && currentEl.getAttribute('type') != "search") {
+                    $element[0].focus();
+                }
             });
         }, $scope, function (publisher) { return $scope.params === publisher; });
     }
