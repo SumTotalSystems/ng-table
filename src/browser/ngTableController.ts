@@ -292,10 +292,9 @@ export function ngTableController<T>(
             (params, newPages) => {
                 $scope.pages = newPages;
                 $timeout(function () {
-					var currentEl = document.activeElement;
-					if(currentEl && currentEl.getAttribute('type') != "search"){
-						$element[0].focus();
-					}
+                    if(document.activeElement === null){
+                        $element[0].focus();
+                    }
                 });
             },
             $scope,

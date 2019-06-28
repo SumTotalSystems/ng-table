@@ -710,8 +710,7 @@ function ngTableController($scope, NgTableParams, $timeout, $parse, $compile, $a
         ngTableEventsChannel.onPagesChanged(function (params, newPages) {
             $scope.pages = newPages;
             $timeout(function () {
-                var currentEl = document.activeElement;
-                if (currentEl && currentEl.getAttribute('type') != "search") {
+                if (document.activeElement === null) {
                     $element[0].focus();
                 }
             });
