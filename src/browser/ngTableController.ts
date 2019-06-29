@@ -292,7 +292,9 @@ export function ngTableController<T>(
             (params, newPages) => {
                 $scope.pages = newPages;
                 $timeout(function () {
-                   $element[0].focus();
+                    if(document.activeElement === null){
+                        $element[0].focus();
+                    }
                 });
             },
             $scope,
