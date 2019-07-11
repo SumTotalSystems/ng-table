@@ -12,7 +12,8 @@
     <a role="button" id="id_{{$index}}" aria-describedby="sortDescription" tabindex="0" ng-if="$column.sortable(this) && (template || $column.title(this))" ng-click="sortBy($column, $event)"
       ng-keydown="(($event.key === 'Enter' || $event.key === ' ') && sortBy($column, $event)) || ($event.keyCode == 9 && resetSortDesc($column))" class="sort-button">
       <div ng-if="!template" class="ng-table-header" ng-class="{'sort-indicator': params.settings().sortingIndicator == 'div'}">
-        <span ng-bind="$column.title(this)" ng-class="{'sort-indicator': params.settings().sortingIndicator == 'span'}"></span>
+        <span ng-bind="$column.title(this)"></span>
+        <i class="fa fa-sort" ng-class="{'fa-sort-up':params.sorting()[$column.sortable(this)]=='asc','fa-sort-down': params.sorting()[$column.sortable(this)]=='desc'}"></i>
 		<!-- Visually hidden element to be used for aria-describeby for sorting button -->
 		<span class="sortDescription" aria-hidden="false" aria-live="polite" ng-bind="sortDesc[$column.sortable(this)]"></span>	
       </div>
