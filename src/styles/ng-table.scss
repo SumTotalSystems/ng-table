@@ -1,4 +1,5 @@
 $table-border-color: #999;
+
 $cell-border-color: #eee;
 .ng-table {
   th {
@@ -14,14 +15,20 @@ $cell-border-color: #eee;
       &.sort-button {
         display: inline-block;
       }
+      .fa{
+        &.fa-sort{
+          margin-left: -14px;
+        }
+      }
       .sort-indicator {
-        padding-right: 18px;
+         padding-right: 16px;
         position: relative;
+        float: left;
           &:after, &:before {
-              content: "";
+              content: none;
               border-width: 0 4px 4px;
               border-style: solid;
-              border-color: #000 transparent;
+              border-color: #333 transparent;
               visibility: visible;
               right: 5px;
               top: 50%;
@@ -41,6 +48,11 @@ $cell-border-color: #eee;
           opacity: 1;
           visibility: visible;
       }
+      .sort-indicator:hover{
+        opacity: 1;
+        visibility: visible;
+        text-decoration: underline;
+    }
       &.sort-desc, &.sort-asc {
           background-color: rgba(141, 192, 219, 0.25);
           text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
