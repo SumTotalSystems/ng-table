@@ -34,6 +34,9 @@ export function ngTableParamsFactory<T>(
             params: IParamValues<T>;
             groupSortDirection?: string;
         };
+		
+		this.currentPage = "";
+		this.focusElement = "";
 
         function isNumber(n: any) {
             return !isNaN(parseFloat(n)) && isFinite(n);
@@ -185,8 +188,11 @@ export function ngTableParamsFactory<T>(
             return _settings;
         };
 
-        this.page = function (page?: number) {
-            return page !== undefined ? this.parameters({
+        this.page = function (page?: number) {						
+			if(page !== undefined){
+				this.currentPage = page;
+			}
+			return page !== undefined ? this.parameters({
                 'page': page
             }) : _params.page;
         };
