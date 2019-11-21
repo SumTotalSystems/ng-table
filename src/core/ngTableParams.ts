@@ -187,7 +187,14 @@ export function ngTableParamsFactory<T>(
             }
             return _settings;
         };
-
+		
+		// Set translated accessibility options
+		this.setAccessibilityOptions = function() {
+			if(_settings.translations != null){
+				_params.accessibilityOptions = _settings.translations;
+			}			
+		}
+		
         this.page = function (page?: number) {						
 			if(page !== undefined){
 				this.currentPage = page;
@@ -685,7 +692,7 @@ export function ngTableParamsFactory<T>(
             sorting: {},
             group: {},
             accessibilityOptions: {
-                pagerTitle: '',
+                pagerTitle: 'Pagination',
                 current: 'Current Page', // default values
                 more: 'More Pages', // default values
                 next: 'Next Page', // default values 
@@ -704,6 +711,7 @@ export function ngTableParamsFactory<T>(
         var _settings: ISettings<T> = {
             $loading: false,
             dataset: null, //allows data to be set when table is initialized
+			translations: null,
             total: 0,
             defaultSort: 'desc',
             filterOptions: ng1.copy(defaultFilterOptions),
@@ -719,6 +727,7 @@ export function ngTableParamsFactory<T>(
         this.settings(ngTableDefaults.settings);
         this.settings(baseSettings);
         this.parameters(baseParameters, true);
+		this.setAccessibilityOptions();
 
         ngTableEventsChannel.publishAfterCreated(this);
         // run events during construction after the initial create event. That way a consumer

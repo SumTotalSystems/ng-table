@@ -469,6 +469,7 @@ export interface ISettings<T> {
      * that ultimately will be displayed.
      */
     dataset?: T[];
+	translations?: {};
     dataOptions?: {};
     debugMode?: boolean;
     /**
