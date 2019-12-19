@@ -130,11 +130,12 @@
 .ng-table-pagination {
   margin-top: 0; }
 
-.sortDescription {
+#sortDescription {
   margin-left: -9999px;
   position: absolute; }
 
-.ng-table-pagination > li > button {
+.ng-table-pagination > li > button,
+.ng-table-pagination > li > #page_more {
   position: relative;
   float: left;
   padding: 6px 12px;
@@ -143,7 +144,7 @@
   color: #337ab7;
   text-decoration: none;
   background-color: #fff;
-  border: 1px solid #ddd; }
+  border: 1px solid #919191; }
 
 .ng-table-pagination > li:first-child > button {
   margin-left: 0;
@@ -155,15 +156,20 @@
   border-bottom-right-radius: 4px; }
 
 .ng-table-pagination > li > button:hover,
-.ng-table-pagination > li > button:focus {
+.ng-table-pagination > li > button:focus,
+.ng-table-pagination > li > #page_more:hover,
+.ng-table-pagination > li > #page_more:focus {
   z-index: 2;
   color: #23527c;
   background-color: #eee;
-  border-color: #ddd; }
+  border-color: #919191; }
 
 .ng-table-pagination > .active > button,
 .ng-table-pagination > .active > button:hover,
-.ng-table-pagination > .active > button:focus {
+.ng-table-pagination > .active > button:focus,
+.ng-table-pagination > .active > #page_more,
+.ng-table-pagination > .active > #page_more:hover,
+.ng-table-pagination > .active > #page_more:focus {
   z-index: 3;
   color: #fff;
   cursor: default;
@@ -172,11 +178,14 @@
 
 .ng-table-pagination > .disabled > button,
 .ng-table-pagination > .disabled > button:hover,
-.ng-table-pagination > .disabled > button:focus {
+.ng-table-pagination > .disabled > button:focus,
+.ng-table-pagination > .disabled > #page_more,
+.ng-table-pagination > .disabled > #page_more:hover,
+.ng-table-pagination > .disabled > #page_more:focus {
   color: #777;
   cursor: not-allowed;
   background-color: #fff;
-  border-color: #ddd; }
+  border-color: #919191; }
 
 .ng-table-group-selector:before,
 .ng-table-group-selector:after,
