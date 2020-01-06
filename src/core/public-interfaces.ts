@@ -116,6 +116,10 @@ export interface InternalTableParams<T> extends INgTableParams<T> {
  * Parameters manager for an ngTable directive
  */
 export interface INgTableParams<T> {
+    /*
+       The pager button that should be refocused after a page change    
+    */
+    focusElement: String;
     /**
      * Returns a string value for the accessibility label
      */
