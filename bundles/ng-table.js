@@ -207,7 +207,6 @@ function ngTable($q, $parse) {
         scope: true,
         controller: 'ngTableController',
         compile: function (element) {
-            element.attr('tabindex', '-1');
             var columns = [], i = 0, dataRow, groupRow, rows = [];
             ng1.forEach(element.find('tr'), function (tr) {
                 rows.push(ng1.element(tr));
@@ -709,11 +708,6 @@ function ngTableController($scope, NgTableParams, $timeout, $parse, $compile, $a
         }, $scope, function (publisher) { return $scope.params === publisher; });
         ngTableEventsChannel.onPagesChanged(function (params, newPages) {
             $scope.pages = newPages;
-            $timeout(function () {
-                if (document.activeElement === null) {
-                    $element[0].focus();
-                }
-            });
         }, $scope, function (publisher) { return $scope.params === publisher; });
     }
     commonInit();
@@ -1159,12 +1153,12 @@ exports.ngTableGroupRowController = ngTableGroupRowController;
  */
 "use strict";
 var ng1 = __webpack_require__(/*! angular */ 0);
-ngTablePagination.$inject = ['$compile', '$document', 'ngTableEventsChannel'];
+ngTablePagination.$inject = ['$compile', '$document', 'ngTableEventsChannel', '$timeout'];
 /**
  * Directive that renders the table pagination controls
  * @ngdoc directive
  */
-function ngTablePagination($compile, $document, ngTableEventsChannel) {
+function ngTablePagination($compile, $document, ngTableEventsChannel, $timeout) {
     return {
         restrict: 'A',
         scope: {
@@ -1175,6 +1169,20 @@ function ngTablePagination($compile, $document, ngTableEventsChannel) {
         link: function (scope, element /*, attrs*/) {
             ngTableEventsChannel.onAfterReloadData(function (pubParams) {
                 scope.pages = pubParams.generatePagesArray();
+            }, scope, function (pubParams) {
+                return pubParams === scope.params;
+            });
+            /**
+            * Directive needs to know when the pages have changed so that it can reset focus
+            * on the button that initiated the page change. This was necessary for accessbility.
+            */
+            ngTableEventsChannel.onPagesChanged(function (pubParams) {
+                if (pubParams.focusElement) {
+                    $timeout(function () {
+                        var theElement = ng1.element(document.querySelector('#' + pubParams.focusElement))[0];
+                        theElement.focus();
+                    });
+                }
             }, scope, function (pubParams) {
                 return pubParams === scope.params;
             });
@@ -2433,7 +2441,7 @@ module.exports = path;
 /***/ function(module, exports, __webpack_require__) {
 
 var path = 'ng-table/pager.html';
-var html = "<nav class=\"ng-cloak ng-table-pager\" ng-if=\"params.data.length\" aria-label=\"{{params.accessibilityOptions('pagerTitle')}}\">\r\n    <div ng-if=\" params.settings().counts.length \" class=\"ng-table-counts btn-group pull-right count-section\">\r\n\t\t<button ng-repeat=\"count in params.settings().counts\" type=\"button \" ng-class=\"{ 'active':params.count()==count} \" ng-click=\"params.count(count) \"\r\n\t\t\tclass=\"btn btn-default \">\r\n\t\t\t<span ng-bind=\"count \"></span>\r\n\t\t</button>\r\n\t</div>\r\n\t<ul ng-if=\"pages.length\" class=\"pagination ng-table-pagination \">\r\n\t\t<!--\r\n\t\t\t\tThe page that is the current page needs to have aria-current set to 'page'. If the page\r\n\t\t\t\tis not current, the aria-current attribute should not even be on the element.\r\n\t\t\t-->\r\n\t\t<li ng-class=\"{ 'disabled': !page.active && !page.current, 'active': page.current}\"\r\n\t\t\tng-repeat=\"page in pages\" ng-switch=\"page.type\">  \t\t\r\n\t\t\t<button trigger-focus-on=\"{{ params.focusElement }}\" id=\"page_prev\" ng-switch-when=\"prev\" ng-click=\"params.focusElement = 'page_prev'; params.page(page.number, $event)\" aria-label=\"{{params.accessibilityOptions('prev')}}\" aria-disabled=\"{{ !page.active && !page.current ? true : undefined }}\" tabindex=\"{{ !page.active && !page.current ? -1 : undefined }}\"><i class=\"fa fa-angle-left\"></i></button>                \r\n\t\t\t<button trigger-focus-on=\"{{ params.focusElement }}\" id=\"page_{{page.number}}\" ng-attr-aria-current=\"{{page.current ? 'page' : undefined}}\" ng-switch-when=\"first\" ng-click=\"params.focusElement = ('page_' + page.number); params.page(page.number, $event)\" aria-disabled=\"{{page.current ? true : undefined}}\" tabindex=\"{{page.current ? -1 : undefined}}\" aria-label=\"{{params.accessibilityOptions('pageNumPrefix')}} {{page.number}}\">{{page.number}}</button>            \r\n\t\t\t<button trigger-focus-on=\"{{ params.focusElement }}\" id=\"page_{{page.number}}\" ng-attr-aria-current=\"{{page.current ? 'page' : undefined}}\" ng-switch-when=\"page\" ng-click=\"params.focusElement = ('page_' + page.number); params.page(page.number, $event)\" aria-disabled=\"{{page.current ? true : undefined}}\" tabindex=\"{{page.current ? -1 : undefined}}\" aria-label=\"{{params.accessibilityOptions('pageNumPrefix')}} {{page.number}}\">{{page.number}}</button>            \r\n\t\t\t<!-- <button trigger-focus-on=\"{{ params.focusElement }}\" id=\"page_more\" ng-switch-when=\"more\" ng-click=\"params.focusElement = 'page_more'; params.page(page.number, $event)\" aria-label=\"{{params.accessibilityOptions('more')}}\"><i class=\"fa fa-ellipsis-h\"></i></button>             -->\r\n\t\t\t<div id=\"page_more\" ng-switch-when=\"more\" aria-hidden=\"true\">...</i></div>            \r\n\t\t\t<button trigger-focus-on=\"{{ params.focusElement }}\" id=\"page_{{page.number}}\" ng-attr-aria-current=\"{{page.current ? 'page' : undefined}}\" ng-switch-when=\"last\" ng-click=\"params.focusElement = ('page_' + page.number); params.page(page.number, $event)\" aria-disabled=\"{{page.current ? true : undefined}}\" tabindex=\"{{page.current ? -1 : undefined}}\" aria-label=\"{{params.accessibilityOptions('pageNumPrefix')}} {{page.number}}\">{{page.number}}</button>           \r\n\t\t\t<button trigger-focus-on=\"{{ params.focusElement }}\" id=\"page_next\" ng-switch-when=\"next\" ng-click=\"params.focusElement = 'page_next'; params.page(page.number, $event); \" aria-label=\"{{params.accessibilityOptions('next')}}\" aria-disabled=\"{{ !page.active && !page.current ? true : undefined }}\" tabindex=\"{{ !page.active && !page.current ? -1 : undefined }}\"><i class=\"fa fa-angle-right\"></i></button>   \r\n\t\t</li>\r\n\t</ul>\r\n</nav>\r\n<span class=\"sr-only\" aria-live=\"assertive\" aria-hidden=\"true\">{{ params.currentPage != '' ? params.accessibilityOptions('pageNumPrefix') + ' ' + params.currentPage : '' }}</span>";
+var html = "<nav class=\"ng-cloak ng-table-pager\" ng-if=\"params.data.length\" aria-label=\"{{params.accessibilityOptions('pagerTitle')}}\">\r\n    <div ng-if=\" params.settings().counts.length \" class=\"ng-table-counts btn-group pull-right count-section\">\r\n\t\t<button ng-repeat=\"count in params.settings().counts\" type=\"button \" ng-class=\"{ 'active':params.count()==count} \" ng-click=\"params.count(count) \"\r\n\t\t\tclass=\"btn btn-default \">\r\n\t\t\t<span ng-bind=\"count \"></span>\r\n\t\t</button>\r\n\t</div>\r\n\t<ul ng-if=\"pages.length\" class=\"pagination ng-table-pagination \">\r\n\t\t<!--\r\n\t\t\t\tThe page that is the current page needs to have aria-current set to 'page'. If the page\r\n\t\t\t\tis not current, the aria-current attribute should not even be on the element.\r\n\t\t\t-->\r\n\t\t<li ng-class=\"{ 'disabled': !page.active && !page.current, 'active': page.current}\"\r\n\t\t\tng-repeat=\"page in pages\" ng-switch=\"page.type\">  \t\t\r\n\t\t\t<button id=\"page_prev\" ng-switch-when=\"prev\" ng-click=\"params.focusElement = 'page_prev'; params.page(page.number, $event)\" aria-label=\"{{params.accessibilityOptions('prev')}}\" aria-disabled=\"{{ !page.active && !page.current ? true : undefined }}\" tabindex=\"{{ !page.active && !page.current ? -1 : undefined }}\"><i class=\"fa fa-angle-left\"></i></button>                \r\n\t\t\t<button id=\"page_{{page.number}}\" ng-attr-aria-current=\"{{page.current ? 'page' : undefined}}\" ng-switch-when=\"first\" ng-click=\"params.focusElement = ('page_' + page.number); params.page(page.number, $event)\" aria-disabled=\"{{page.current ? true : undefined}}\" tabindex=\"{{page.current ? -1 : undefined}}\" aria-label=\"{{params.accessibilityOptions('pageNumPrefix')}} {{page.number}}\">{{page.number}}</button>            \r\n\t\t\t<button id=\"page_{{page.number}}\" ng-attr-aria-current=\"{{page.current ? 'page' : undefined}}\" ng-switch-when=\"page\" ng-click=\"params.focusElement = ('page_' + page.number); params.page(page.number, $event)\" aria-disabled=\"{{page.current ? true : undefined}}\" tabindex=\"{{page.current ? -1 : undefined}}\" aria-label=\"{{params.accessibilityOptions('pageNumPrefix')}} {{page.number}}\">{{page.number}}</button>            \r\n\t\t\t<!-- <button id=\"page_more\" ng-switch-when=\"more\" ng-click=\"params.focusElement = 'page_more'; params.page(page.number, $event)\" aria-label=\"{{params.accessibilityOptions('more')}}\"><i class=\"fa fa-ellipsis-h\"></i></button>             -->\r\n\t\t\t<div id=\"page_more\" ng-switch-when=\"more\" aria-hidden=\"true\">...</i></div>            \r\n\t\t\t<button id=\"page_{{page.number}}\" ng-attr-aria-current=\"{{page.current ? 'page' : undefined}}\" ng-switch-when=\"last\" ng-click=\"params.focusElement = ('page_' + page.number); params.page(page.number, $event)\" aria-disabled=\"{{page.current ? true : undefined}}\" tabindex=\"{{page.current ? -1 : undefined}}\" aria-label=\"{{params.accessibilityOptions('pageNumPrefix')}} {{page.number}}\">{{page.number}}</button>           \r\n\t\t\t<button id=\"page_next\" ng-switch-when=\"next\" ng-click=\"params.focusElement = 'page_next'; params.page(page.number, $event); \" aria-label=\"{{params.accessibilityOptions('next')}}\" aria-disabled=\"{{ !page.active && !page.current ? true : undefined }}\" tabindex=\"{{ !page.active && !page.current ? -1 : undefined }}\"><i class=\"fa fa-angle-right\"></i></button>   \r\n\t\t</li>\r\n\t</ul>\r\n</nav>\r\n<span class=\"sr-only\" aria-live=\"assertive\" aria-hidden=\"true\">{{ params.currentPage != '' ? params.accessibilityOptions('pageNumPrefix') + ' ' + params.currentPage : '' }}</span>";
 var angular = __webpack_require__(/*! angular */ 0);
 angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 module.exports = path;

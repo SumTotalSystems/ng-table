@@ -14,13 +14,13 @@ interface IScopeExtensions {
     pages: IPageButton[]
 }
 
-ngTablePagination.$inject = ['$compile', '$document', 'ngTableEventsChannel'];
+ngTablePagination.$inject = ['$compile', '$document', 'ngTableEventsChannel', '$timeout'];
 
 /**
  * Directive that renders the table pagination controls
  * @ngdoc directive
  */
-export function ngTablePagination<T>($compile: ng1.ICompileService, $document: ng1.IDocumentService, ngTableEventsChannel: IEventsChannel): ng1.IDirective {
+export function ngTablePagination<T>($compile: ng1.ICompileService, $document: ng1.IDocumentService, ngTableEventsChannel: IEventsChannel, $timeout: ng1.ITimeoutService): ng1.IDirective {
 
     return {
         restrict: 'A',
@@ -34,6 +34,22 @@ export function ngTablePagination<T>($compile: ng1.ICompileService, $document: n
             ngTableEventsChannel.onAfterReloadData<T>(function(pubParams) {
                 scope.pages = pubParams.generatePagesArray();
             }, scope, function(pubParams){
+                return pubParams === scope.params;
+            });
+
+             /**
+             * Directive needs to know when the pages have changed so that it can reset focus
+             * on the button that initiated the page change. This was necessary for accessbility.
+             */
+            ngTableEventsChannel.onPagesChanged<T>(function (pubParams) {
+                if (pubParams.focusElement) {
+                    $timeout(function () {
+                        var theElement = ng1.element(document.querySelector('#' + pubParams.focusElement))[0] as HTMLButtonElement;
+                        theElement.focus();
+                    });
+
+                }
+            }, scope, function (pubParams) {
                 return pubParams === scope.params;
             });
 

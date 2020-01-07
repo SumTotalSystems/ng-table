@@ -290,12 +290,7 @@ export function ngTableController<T>(
 
         ngTableEventsChannel.onPagesChanged<T>(
             (params, newPages) => {
-                $scope.pages = newPages;
-                $timeout(function () {
-                    if(document.activeElement === null){
-                        $element[0].focus();
-                    }
-                });
+                $scope.pages = newPages;                
             },
             $scope,
             (publisher) => $scope.params === publisher
