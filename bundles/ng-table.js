@@ -282,7 +282,8 @@ function ngTable($q, $parse) {
                     groupable: parsedAttribute('groupable'),
                     headerTemplateURL: parsedAttribute('header'),
                     filterData: parsedAttribute('filter-data'),
-                    show: el.attr("ng-if") ? parsedAttribute('ng-if') : undefined
+                    show: el.attr("ng-if") ? parsedAttribute('ng-if') : undefined,
+                    sortDescription: undefined
                 });
                 if (groupRow || el.attr("ng-if")) {
                     // change ng-if to bind to our column definition which we know will be writable
@@ -333,10 +334,10 @@ function ngTableColumn() {
         buildColumn: buildColumn
     };
     //////////////
-    function buildColumn(column, defaultScope, columns) {
+    function buildColumn(column, defaultScope, columns, params) {
         // note: we're not modifying the original column object. This helps to avoid unintended side affects
         var extendedCol = Object.create(column);
-        var defaults = createDefaults();
+        var defaults = createDefaults(params);
         for (var prop in defaults) {
             if (extendedCol[prop] === undefined) {
                 extendedCol[prop] = defaults[prop];
@@ -385,7 +386,7 @@ function ngTableColumn() {
         }
         return extendedCol;
     }
-    function createDefaults() {
+    function createDefaults(params) {
         return {
             'class': createGetterSetter(''),
             filter: createGetterSetter(false),
@@ -396,7 +397,8 @@ function ngTableColumn() {
             sortable: createGetterSetter(false),
             show: createGetterSetter(true),
             title: createGetterSetter(''),
-            titleAlt: createGetterSetter('')
+            titleAlt: createGetterSetter(''),
+            sortDescription: createGetterSetter(params.accessibilityOptions('sortDescriptionAsc'))
         };
     }
     function createGetterSetter(initialValue) {
@@ -604,7 +606,7 @@ function ngTableController($scope, NgTableParams, $timeout, $parse, $compile, $a
     this.buildColumns = function (columns) {
         var result = [];
         (columns || []).forEach(function (col) {
-            result.push(ngTableColumn.buildColumn(col, $scope, result));
+            result.push(ngTableColumn.buildColumn(col, $scope, result, $scope.params));
         });
         return result;
     };
@@ -1339,9 +1341,10 @@ ngTableSorterRowController.$inject = ['$scope'];
  */
 function ngTableSorterRowController($scope) {
     $scope.sortBy = sortBy;
-    $scope.resetSortDesc = resetSortDesc;
+    $scope.resetSortLive = resetSortLive;
     ///////////
     function sortBy($column, event) {
+        $scope.resetSortLive;
         var parsedSortable = $column.sortable && $column.sortable();
         if (!parsedSortable || typeof parsedSortable !== 'string') {
             return;
@@ -1355,15 +1358,24 @@ function ngTableSorterRowController($scope) {
             $scope.params.parameters({
                 sorting: sortingParams
             });
-            $scope.sortDesc = JSON.parse(JSON.stringify(sortingParams));
-            if (sortingParams[parsedSortable] == 'asc')
-                $scope.sortDesc[parsedSortable] = "Sort " + $column.title() + " in ascending order";
-            else if (sortingParams[parsedSortable] == 'desc')
-                $scope.sortDesc[parsedSortable] = "Sort " + $column.title() + " in descending order";
+            $scope.$columns.forEach(function (col) {
+                if (col.id == $column.id) {
+                    var newDesc = '';
+                    if ((sorting ? inverseSort : defaultSort) === 'asc') {
+                        newDesc = $scope.params.accessibilityOptions('sortDescriptionAsc');
+                    }
+                    else {
+                        newDesc = $scope.params.accessibilityOptions('sortDescriptionDesc');
+                    }
+                    col.sortDescription.assign($scope, newDesc);
+                }
+            });
+            $scope.sortLive = JSON.parse(JSON.stringify(sortingParams));
+            $scope.sortLive[parsedSortable] = $scope.params.accessibilityOptions('sortedLive');
         }
     }
-    function resetSortDesc($column) {
-        $scope.sortDesc = {};
+    function resetSortLive() {
+        $scope.sortLive = {};
     }
 }
 exports.ngTableSorterRowController = ngTableSorterRowController;
@@ -2271,7 +2283,10 @@ function ngTableParamsFactory($q, $log, $filter, ngTableDefaults, ngTableDefault
                 more: 'More Pages',
                 next: 'Next Page',
                 prev: 'Previous Page',
-                pageNumPrefix: 'Page'
+                pageNumPrefix: 'Page',
+                sortDescriptionAsc: 'sort in ascending order',
+                sortDescriptionDesc: 'sort in descending order',
+                sortedLive: 'table sorted' // default values
             }
         };
         ng1.extend(_params, ngTableDefaults.params);
@@ -2456,7 +2471,7 @@ module.exports = path;
 /***/ function(module, exports, __webpack_require__) {
 
 var path = 'ng-table/sorterRow.html';
-var html = "<tr class=\"ng-table-sort-header\" role=\"row\">\r\n  <!--\r\n     In an effort to provide accessible tables, if a column is sortable it should be given the aria-sort attribute \r\n     with a value of 'none', 'ascending', or 'descending'. The child element should have its role set to 'button'\r\n  -->\r\n  <!-- Checkbox template must be in a <td> as per SS-20165 -->\r\n  <td ng-repeat=\"$column in $columns\" ng-init=\"template = $column.headerTemplateURL(this)\" ng-if=\"$column.headerTemplateURL(this)\">\r\n    <div ng-if=\"template\" ng-include=\"template\"></div>\r\n  </td>\r\n  <th scope=\"col\" title=\"{{$column.headerTitle(this)}}\" role=\"columnheader\" ng-attr-aria-sort=\"{{!$column.sortable(this) ? undefined : params.sorting()[$column.sortable(this)]=='asc' ? 'ascending' : params.sorting()[$column.sortable(this)]=='desc' ? 'descending' : 'none'}}\"\r\n    ng-repeat=\"$column in $columns\" ng-class=\"{ \r\n                    'sortable': $column.sortable(this),\r\n                    'sort-asc': params.sorting()[$column.sortable(this)]=='asc',\r\n                    'sort-desc': params.sorting()[$column.sortable(this)]=='desc'\r\n                  }\" class=\"header {{$column.class(this)}}\" ng-if=\"$column.show(this) && !$column.headerTemplateURL(this)\">\r\n    <a role=\"button\" id=\"id_{{$index}}\" aria-describedby=\"sortDescription\" tabindex=\"0\" ng-if=\"$column.sortable(this) && (template || $column.title(this))\" ng-click=\"sortBy($column, $event)\"\r\n      ng-keydown=\"(($event.key === 'Enter' || $event.key === ' ') && sortBy($column, $event)) || ($event.keyCode == 9 && resetSortDesc($column))\" class=\"sort-button\">\r\n      <div ng-if=\"!template\" class=\"ng-table-header\" ng-class=\"{'sort-indicator': params.settings().sortingIndicator == 'div'}\">\r\n        <span ng-bind=\"$column.title(this)\" ng-class=\"{'sort-indicator': params.settings().sortingIndicator == 'span'}\">{{$column.title(this)}}</span>\r\n        <i ng-if=\"(params.settings().sortingIndicator == 'div' || params.settings().sortingIndicator == 'span')\" class=\"fa fa-sort\" ng-class=\"{'fa-sort-up':params.sorting()[$column.sortable(this)]=='asc','fa-sort-down': params.sorting()[$column.sortable(this)]=='desc'}\" aria-hidden=\"true\"></i>    \t\r\n      </div>      \r\n    </a>\r\n    <!-- Visually hidden element to be used for aria-describeby for sorting button -->\r\n\t\t<span id=\"sortDescription\" class=\"sr-only\" aria-hidden=\"false\" aria-live=\"polite\" ng-bind=\"sortDesc[$column.sortable(this)]\"></span>\r\n    <!--This header column is used for non-sortable columns.-->\r\n    <div ng-if=\"!$column.sortable(this) && (template || $column.title(this))\">\r\n      <div ng-if=\"!template\" class=\"ng-table-header\">\r\n        <span ng-bind=\"$column.title(this)\"></span>\r\n      </div>\r\n      <div ng-if=\"template\" ng-include=\"template\"></div>\r\n    </div>\r\n  </th>\r\n</tr>";
+var html = "<tr class=\"ng-table-sort-header\" role=\"row\">  \r\n  <!-- Checkbox template must be in a <td> as per SS-20165 -->\r\n  <td ng-repeat=\"$column in $columns\" ng-init=\"template = $column.headerTemplateURL(this)\" ng-if=\"$column.show(this) && $column.headerTemplateURL(this)\">\r\n    <div ng-if=\"template\" ng-include=\"template\"></div>\r\n  </td>\r\n  <th scope=\"col\" title=\"{{$column.headerTitle(this)}}\" role=\"columnheader\" ng-attr-aria-sort=\"{{!$column.sortable(this) ? 'none' : params.sorting()[$column.sortable(this)]=='asc' ? 'ascending' : params.sorting()[$column.sortable(this)]=='desc' ? 'descending' : 'none'}}\"\r\n    ng-repeat=\"$column in $columns track by $index\" ng-class=\"{ \r\n                    'sortable': $column.sortable(this),\r\n                    'sort-asc': params.sorting()[$column.sortable(this)]=='asc',\r\n                    'sort-desc': params.sorting()[$column.sortable(this)]=='desc'\r\n                  }\" class=\"header {{$column.class(this)}}\" ng-if=\"$column.show(this) && !$column.headerTemplateURL(this)\">\r\n    <a role=\"button\" id=\"id_{{$index}}\" aria-describedby=\"sortDescription_{{$index}}\" tabindex=\"0\" ng-if=\"$column.sortable(this) && (template || $column.title(this))\" ng-click=\"sortBy($column, $event)\"\r\n      ng-keydown=\"(($event.key === 'Enter' || $event.key === ' ' || $event.key === '32') && sortBy($column, $event)) || $event.keyCode == 9\" class=\"sort-button\">\r\n      <div ng-if=\"!template\" class=\"ng-table-header\" ng-class=\"{'sort-indicator': params.settings().sortingIndicator == 'div'}\">\r\n        <span ng-bind=\"$column.title(this)\" ng-class=\"{'sort-indicator': params.settings().sortingIndicator == 'span'}\">{{$column.title(this)}}</span>\r\n        <i ng-if=\"(params.settings().sortingIndicator == 'div' || params.settings().sortingIndicator == 'span')\" class=\"fa fa-sort\" ng-class=\"{'fa-sort-up':params.sorting()[$column.sortable(this)]=='asc','fa-sort-down': params.sorting()[$column.sortable(this)]=='desc'}\" aria-hidden=\"true\"></i>    \t\r\n      </div>      \r\n    </a>\r\n    <!-- Visually hidden element to be used for aria-describedby for sorting button -->\r\n    <span id=\"sortDescription_{{$index}}\" tabindex=\"-1\" class=\"sr-only\" aria-hidden=\"true\" ng-bind=\"$column.sortDescription(this)\"></span>    \r\n    <span id=\"sortLive_{{$index}}\" tabindex=\"-1\" class=\"sr-only\" aria-hidden=\"true\" aria-live=\"polite\" ng-bind=\"sortLive[$column.sortable(this)]\"></span>\r\n    <!--This header column is used for non-sortable columns.-->\r\n    <div ng-if=\"!$column.sortable(this) && (template || $column.title(this))\">\r\n      <div ng-if=\"!template\" class=\"ng-table-header\">\r\n        <span ng-bind=\"$column.title(this)\"></span>\r\n      </div>\r\n      <div ng-if=\"template\" ng-include=\"template\"></div>\r\n    </div>\r\n  </th>\r\n</tr>";
 var angular = __webpack_require__(/*! angular */ 0);
 angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 module.exports = path;

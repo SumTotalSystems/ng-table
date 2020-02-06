@@ -127,7 +127,8 @@ export function ngTable($q: IQService, $parse: IParseService) : IDirective {
                     groupable: parsedAttribute<string | boolean>('groupable'),
                     headerTemplateURL: parsedAttribute<string | boolean>('header'),
                     filterData: parsedAttribute<IPromise<SelectData> | SelectData>('filter-data'),
-                    show: el.attr("ng-if") ? parsedAttribute<boolean>('ng-if') : undefined
+                    show: el.attr("ng-if") ? parsedAttribute<boolean>('ng-if') : undefined,
+                    sortDescription: undefined
                 });
 
                 if (groupRow || el.attr("ng-if")){

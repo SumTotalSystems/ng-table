@@ -9,6 +9,7 @@
 import { IScope } from 'angular';
 import * as ng1 from 'angular';
 import { IColumnDef, IDynamicTableColDef } from './public-interfaces';
+import { INgTableParams } from '../core';
 
 /**
  * @private
@@ -23,7 +24,7 @@ export interface IColumnBuilder {
      * @param columns a reference to the $columns array to make available on the context supplied to the
      * $column getter methods
      */
-    buildColumn(column: IColumnDef | IDynamicTableColDef, defaultScope: IScope, columns: Array<IColumnDef | IDynamicTableColDef>): IColumnDef | IDynamicTableColDef
+    buildColumn(column: IColumnDef | IDynamicTableColDef, defaultScope: IScope, columns: Array<IColumnDef | IDynamicTableColDef>, params: INgTableParams<any>): IColumnDef | IDynamicTableColDef
 }
 
 ngTableColumn.$inject = [];
@@ -40,13 +41,13 @@ export function ngTableColumn(): IColumnBuilder {
 
     //////////////
 
-    function buildColumn(column: IColumnDef | IDynamicTableColDef, defaultScope: IScope, columns: IColumnDef[]): IColumnDef | IDynamicTableColDef {
+    function buildColumn(column: IColumnDef | IDynamicTableColDef, defaultScope: IScope, columns: IColumnDef[], params: INgTableParams<any>): IColumnDef | IDynamicTableColDef {
         // note: we're not modifying the original column object. This helps to avoid unintended side affects
         var extendedCol = Object.create(column);
-        var defaults = createDefaults();
+        var defaults = createDefaults(params);
         for (var prop in defaults) {
-            if (extendedCol[prop] === undefined) {
-                extendedCol[prop] = defaults[prop];
+            if (extendedCol[prop] === undefined) {                
+                extendedCol[prop] = defaults[prop];                  
             }
             if(!ng1.isFunction(extendedCol[prop])){
                 // wrap raw field values with "getter" functions
@@ -91,7 +92,7 @@ export function ngTableColumn(): IColumnBuilder {
         return extendedCol;
     }
 
-    function createDefaults(){
+    function createDefaults(params: INgTableParams<any>){
         return {
             'class': createGetterSetter(''),
             filter: createGetterSetter(false),
@@ -102,7 +103,8 @@ export function ngTableColumn(): IColumnBuilder {
             sortable: createGetterSetter(false),
             show: createGetterSetter(true),
             title: createGetterSetter(''),
-            titleAlt: createGetterSetter('')
+            titleAlt: createGetterSetter(''),
+            sortDescription: createGetterSetter(params.accessibilityOptions('sortDescriptionAsc'))
         };
     }
 
