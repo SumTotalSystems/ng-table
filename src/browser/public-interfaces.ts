@@ -89,7 +89,11 @@ export interface IColumnDef {
      * An alternate column title. Typically this can be used for responsive table layouts
      * where the titleAlt should be used for small screen sizes
      */
-    titleAlt: IColumnField<string>;
+    titleAlt: IColumnField<string>;   
+    /**
+     * Accessibile name for sortable columns
+     */
+    sortDescription?: IColumnField<string>;  
 }
 
 export type DynamicTableColField<T> = IDynamicTableColFieldFunc<T> | T;
@@ -152,6 +156,10 @@ export interface IDynamicTableColDef {
      * where the titleAlt should be used for small screen sizes
      */
     titleAlt?: DynamicTableColField<string>;
+    /**
+     * Accessibile name for sotable columns
+     */
+    sortDescription?: DynamicTableColField<string>; 
 }
 
 /**
