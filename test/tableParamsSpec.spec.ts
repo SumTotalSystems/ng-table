@@ -158,7 +158,10 @@ describe('NgTableParams', () => {
             'accessibilityOptions[more]': 'More%20Pages',
             'accessibilityOptions[next]': 'Next%20Page',
             'accessibilityOptions[prev]': 'Previous%20Page',
-            'accessibilityOptions[pageNumPrefix]': 'Page'
+            'accessibilityOptions[pageNumPrefix]': 'Page',
+            'accessibilityOptions[sortDescriptionAsc]': 'sort%20in%20ascending%20order',
+            'accessibilityOptions[sortDescriptionDesc]': 'sort%20in%20descending%20order',
+            'accessibilityOptions[sortedLive]': 'table%20sorted'
         });
         expect(params.url(true)).toEqual([
             'page=1',
@@ -174,7 +177,10 @@ describe('NgTableParams', () => {
             'accessibilityOptions[more]=More%20Pages',
             'accessibilityOptions[next]=Next%20Page',
             'accessibilityOptions[prev]=Previous%20Page',
-            'accessibilityOptions[pageNumPrefix]=Page'
+            'accessibilityOptions[pageNumPrefix]=Page',
+            'accessibilityOptions[sortDescriptionAsc]=sort%20in%20ascending%20order',
+            'accessibilityOptions[sortDescriptionDesc]=sort%20in%20descending%20order',
+            'accessibilityOptions[sortedLive]=table%20sorted'
         ]);
     });
 
