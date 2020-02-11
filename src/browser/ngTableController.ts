@@ -173,7 +173,7 @@ export function ngTableController<T>(
     this.buildColumns = function (columns: Array<IColumnDef | IDynamicTableColDef>) {
         var result: Array<IColumnDef | IDynamicTableColDef> = [];
         (columns || []).forEach(function (col) {
-            result.push(ngTableColumn.buildColumn(col, $scope, result));
+            result.push(ngTableColumn.buildColumn(col, $scope, result, $scope.params));
         });
         return result
     };

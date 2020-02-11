@@ -638,7 +638,7 @@ describe('ng-table-dynamic', () => {
             var rows = thead.find('tr');
             var titles = ng1.element(rows[0]).find('th');
 
-            return ng1.element(titles).text().trim().split(/\s+/g)
+            return ng1.element(titles).text().trim().replace('sort in ascending order','').replace('sort in ascending order','').replace('sort in ascending order','').trim().split(/\s+/g)
         };
 
         beforeEach(inject(function ($compile: ICompileService, $q: IQService, NgTableParams: ITableParamsConstructor<IPerson>) {
