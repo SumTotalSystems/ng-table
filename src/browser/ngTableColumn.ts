@@ -99,6 +99,7 @@ export function ngTableColumn(): IColumnBuilder {
             groupable: createGetterSetter(false),
             filterData: ng1.noop,
             headerTemplateURL: createGetterSetter(false),
+            headerTemplateTd: createGetterSetter(false),
             headerTitle: createGetterSetter(''),
             sortable: createGetterSetter(false),
             show: createGetterSetter(true),

@@ -67,6 +67,10 @@ export interface IColumnDef {
      */
     headerTemplateURL: IColumnField<string | boolean>;
     /**
+     * If the element in the custom template is an input it should be placed in a 'td' tag and this property should be true
+     */
+    headerTemplateTd: IColumnField<string | boolean>;    
+    /**
      * The text that should be used as a tooltip for this column in the table header
      */
     headerTitle: IColumnField<string>;
@@ -134,6 +138,10 @@ export interface IDynamicTableColDef {
      * The url of a custom html template that should be used to render a table header for this column
      */
     headerTemplateURL?: DynamicTableColField<string | boolean>;
+    /**
+     * If the element in the custom template is an input it should be placed in a 'td' tag and this property should be true
+     */
+    headerTemplateTd?: DynamicTableColField<string | boolean>;
     /**
      * The text that should be used as a tooltip for this column in the table header
      */
