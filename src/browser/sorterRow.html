@@ -1,20 +1,21 @@
 <tr class="ng-table-sort-header" role="row">  
   <!-- Checkbox template must be in a <td> as per SS-20165 -->
-  <td ng-repeat="$column in $columns" ng-init="template = $column.headerTemplateURL(this)" ng-if="$column.show(this) && $column.headerTemplateURL(this)">
+  <td ng-repeat-start="$column in $columns track by $index" ng-init="template = $column.headerTemplateURL(this)" ng-if="$column.show(this) && $column.headerTemplateTd(this)">
     <div ng-if="template" ng-include="template"></div>
   </td>
   <th scope="col" title="{{$column.headerTitle(this)}}" role="columnheader" ng-attr-aria-sort="{{!$column.sortable(this) ? 'none' : params.sorting()[$column.sortable(this)]=='asc' ? 'ascending' : params.sorting()[$column.sortable(this)]=='desc' ? 'descending' : 'none'}}"
-    ng-repeat="$column in $columns track by $index" ng-class="{ 
+                  ng-repeat-end ng-class="{ 
                     'sortable': $column.sortable(this),
                     'sort-asc': params.sorting()[$column.sortable(this)]=='asc',
                     'sort-desc': params.sorting()[$column.sortable(this)]=='desc'
-                  }" class="header {{$column.class(this)}}" ng-if="$column.show(this) && !$column.headerTemplateURL(this)">
+                  }" ng-init="template = $column.headerTemplateURL(this)" class="header {{$column.class(this)}}" ng-if="$column.show(this) && !$column.headerTemplateTd(this)">
     <a role="button" id="id_{{$index}}" aria-describedby="sortDescription_{{$index}}" tabindex="0" ng-if="$column.sortable(this) && (template || $column.title(this))" ng-click="sortBy($column, $event)"
       ng-keydown="(($event.key === 'Enter' || $event.key === ' ' || $event.key === '32') && sortBy($column, $event)) || $event.keyCode == 9" class="sort-button">
       <div ng-if="!template" class="ng-table-header" ng-class="{'sort-indicator': params.settings().sortingIndicator == 'div'}">
         <span ng-bind="$column.title(this)" ng-class="{'sort-indicator': params.settings().sortingIndicator == 'span'}">{{$column.title(this)}}</span>
         <i ng-if="(params.settings().sortingIndicator == 'div' || params.settings().sortingIndicator == 'span')" class="fa fa-sort" ng-class="{'fa-sort-up':params.sorting()[$column.sortable(this)]=='asc','fa-sort-down': params.sorting()[$column.sortable(this)]=='desc'}" aria-hidden="true"></i>    	
-      </div>      
+      </div>  
+      <div ng-if="template" ng-include="template"></div>    
     </a>
     <!-- Visually hidden element to be used for aria-describedby for sorting button -->
     <span id="sortDescription_{{$index}}" tabindex="-1" class="sr-only" aria-hidden="true" ng-bind="$column.sortDescription(this)"></span>    

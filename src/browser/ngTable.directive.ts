@@ -126,6 +126,7 @@ export function ngTable($q: IQService, $parse: IParseService) : IDirective {
                     filter: parsedAttribute<IFilterTemplateDefMap>('filter'),
                     groupable: parsedAttribute<string | boolean>('groupable'),
                     headerTemplateURL: parsedAttribute<string | boolean>('header'),
+                    headerTemplateTd: parsedAttribute<string | boolean>('is-input'),
                     filterData: parsedAttribute<IPromise<SelectData> | SelectData>('filter-data'),
                     show: el.attr("ng-if") ? parsedAttribute<boolean>('ng-if') : undefined,
                     sortDescription: undefined
