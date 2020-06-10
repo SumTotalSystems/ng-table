@@ -190,8 +190,13 @@ export function ngTableParamsFactory<T>(
 		
 		// Set translated accessibility options
 		this.setAccessibilityOptions = function() {
-			if(_settings.translations != null){
-				_params.accessibilityOptions = _settings.translations;
+            if(_settings.translations != null){
+                var keys = Object.keys(_settings.translations);
+                keys.forEach(key => {
+                    if(_params.accessibilityOptions[key] != void 0) {
+                        _params.accessibilityOptions[key] = _settings.translations[key];
+                    }
+                })
 			}			
 		}
 		
@@ -703,7 +708,9 @@ export function ngTableParamsFactory<T>(
                 sortedLive: 'table sorted' // default values
             }
         };
-        ng1.extend(_params, ngTableDefaults.params);
+        
+        // SS-6106 - this extend overwrote _params.accessibilityOptions
+        // ng1.extend(_params, ngTableDefaults.params);
 
         /**
          * @ngdoc object
