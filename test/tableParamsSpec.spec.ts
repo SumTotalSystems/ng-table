@@ -982,7 +982,7 @@ describe('NgTableParams', () => {
         ngTableDefaults.settings.counts = [];
         var tp = new NgTableParams();
 
-        expect(tp.count()).toEqual(2);
+        expect(tp.count()).toEqual(10);
         expect(tp.page()).toEqual(1);
 
         var settings = tp.settings();
