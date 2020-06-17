@@ -36,8 +36,11 @@ export function ngTableSorterRowController<T>($scope: ITableScope<T> & IScopeExt
 
     $scope.sortBy = sortBy;
     $scope.resetSortLive = resetSortLive;
-    
-    ///////////
+        
+    // Sets default sort description to cater for parsed sort orders
+    setDefaultSortDescription();
+
+    ///////////    
 
     function sortBy($column: IColumnDef, event: IAugmentedMouseEvent) {
         $scope.resetSortLive;
@@ -58,10 +61,10 @@ export function ngTableSorterRowController<T>($scope: ITableScope<T> & IScopeExt
                 if(col.id == $column.id){                    
                     var newDesc = '';
                     if((sorting ? inverseSort : defaultSort) === 'asc'){
-                        newDesc = $scope.params.accessibilityOptions('sortDescriptionAsc');
+                        newDesc = $scope.params.accessibilityOptions('sortDescriptionDesc');
                     }
                     else{
-                        newDesc = $scope.params.accessibilityOptions('sortDescriptionDesc');
+                        newDesc = $scope.params.accessibilityOptions('sortDescriptionAsc');
                     }
                     (<any>col.sortDescription).assign($scope, newDesc);
                 }                
@@ -75,5 +78,22 @@ export function ngTableSorterRowController<T>($scope: ITableScope<T> & IScopeExt
 
     function resetSortLive() {
 		$scope.sortLive = {};
-	}
+    }
+    
+    function setDefaultSortDescription() {
+        $scope.$columns.forEach(function(col){
+            var sortable = col.sortable();
+            if (sortable || typeof sortable === 'string') {
+                var sortDirection = $scope.params.sorting()[sortable.toString()]
+                var desc = '';
+                if(sortDirection === 'asc') {
+                    desc = $scope.params.accessibilityOptions('sortDescriptionDesc');
+                }
+                else {
+                    desc = $scope.params.accessibilityOptions('sortDescriptionAsc');
+                }
+                (<any>col.sortDescription).assign($scope, desc);
+            }                    
+        });
+    }
 }
