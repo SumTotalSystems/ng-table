@@ -1344,7 +1344,9 @@ ngTableSorterRowController.$inject = ['$scope'];
 function ngTableSorterRowController($scope) {
     $scope.sortBy = sortBy;
     $scope.resetSortLive = resetSortLive;
-    ///////////
+    // Sets default sort description to cater for parsed sort orders
+    setDefaultSortDescription();
+    ///////////    
     function sortBy($column, event) {
         $scope.resetSortLive;
         var parsedSortable = $column.sortable && $column.sortable();
@@ -1364,10 +1366,10 @@ function ngTableSorterRowController($scope) {
                 if (col.id == $column.id) {
                     var newDesc = '';
                     if ((sorting ? inverseSort : defaultSort) === 'asc') {
-                        newDesc = $scope.params.accessibilityOptions('sortDescriptionAsc');
+                        newDesc = $scope.params.accessibilityOptions('sortDescriptionDesc');
                     }
                     else {
-                        newDesc = $scope.params.accessibilityOptions('sortDescriptionDesc');
+                        newDesc = $scope.params.accessibilityOptions('sortDescriptionAsc');
                     }
                     col.sortDescription.assign($scope, newDesc);
                 }
@@ -1378,6 +1380,22 @@ function ngTableSorterRowController($scope) {
     }
     function resetSortLive() {
         $scope.sortLive = {};
+    }
+    function setDefaultSortDescription() {
+        $scope.$columns.forEach(function (col) {
+            var sortable = col.sortable();
+            if (sortable || typeof sortable === 'string') {
+                var sortDirection = $scope.params.sorting()[sortable.toString()];
+                var desc = '';
+                if (sortDirection === 'asc') {
+                    desc = $scope.params.accessibilityOptions('sortDescriptionDesc');
+                }
+                else {
+                    desc = $scope.params.accessibilityOptions('sortDescriptionAsc');
+                }
+                col.sortDescription.assign($scope, desc);
+            }
+        });
     }
 }
 exports.ngTableSorterRowController = ngTableSorterRowController;
