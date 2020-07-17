@@ -16,7 +16,6 @@ import { ITableScope } from './ngTableController';
 export interface IScopeExtensions {
     sortLive:any;	
     sortBy($column: IColumnDef, event: IAugmentedMouseEvent): void;
-	resetSortLive() : void;
 }
 
 /**
@@ -35,15 +34,13 @@ ngTableSorterRowController.$inject = ['$scope'];
 export function ngTableSorterRowController<T>($scope: ITableScope<T> & IScopeExtensions) {
 
     $scope.sortBy = sortBy;
-    $scope.resetSortLive = resetSortLive;
         
     // Sets default sort description to cater for parsed sort orders
     setDefaultSortDescription();
 
     ///////////    
 
-    function sortBy($column: IColumnDef, event: IAugmentedMouseEvent) {
-        $scope.resetSortLive;
+    function sortBy($column: IColumnDef, event: IAugmentedMouseEvent) {        
         var parsedSortable = $column.sortable && $column.sortable();        
         if (!parsedSortable || typeof parsedSortable !== 'string') {
             return;
@@ -67,30 +64,38 @@ export function ngTableSorterRowController<T>($scope: ITableScope<T> & IScopeExt
                         newDesc = $scope.params.accessibilityOptions('sortDescriptionAsc');
                     }
                     (<any>col.sortDescription).assign($scope, newDesc);
-                }                
+                }      
+                else {
+                    (<any>col.sortDescription).assign($scope, $scope.params.accessibilityOptions('sortDescriptionDesc'));
+                }                         
             });
 
             $scope.sortLive = JSON.parse(JSON.stringify(sortingParams));
-            $scope.sortLive[parsedSortable] = $scope.params.accessibilityOptions('sortedLive');			
-        }
+            
+            $scope.sortLive[parsedSortable] = $scope.params.accessibilityOptions('sortedLive');	
 
+            setTimeout(() => {
+                resetSortLive(parsedSortable);		
+            }, 2000);
+        }
     }
 
-    function resetSortLive() {
-		$scope.sortLive = {};
+    function resetSortLive(parsedSortable: any) {
+        $scope.sortLive = {};
+        $scope.$apply();
     }
     
     function setDefaultSortDescription() {
         $scope.$columns.forEach(function(col){
             var sortable = col.sortable();
             if (sortable || typeof sortable === 'string') {
-                var sortDirection = $scope.params.sorting()[sortable.toString()]
+                var sortDirection = $scope.params.sorting()[sortable.toString()];
                 var desc = '';
-                if(sortDirection === 'asc') {
-                    desc = $scope.params.accessibilityOptions('sortDescriptionDesc');
+                if(sortDirection === 'desc') {
+                    desc = $scope.params.accessibilityOptions('sortDescriptionAsc');
                 }
                 else {
-                    desc = $scope.params.accessibilityOptions('sortDescriptionAsc');
+                    desc = $scope.params.accessibilityOptions('sortDescriptionDesc');
                 }
                 (<any>col.sortDescription).assign($scope, desc);
             }                    

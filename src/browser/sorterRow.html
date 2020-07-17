@@ -9,7 +9,7 @@
                     'sort-asc': params.sorting()[$column.sortable(this)]=='asc',
                     'sort-desc': params.sorting()[$column.sortable(this)]=='desc'
                   }" ng-init="template = $column.headerTemplateURL(this)" class="header {{$column.class(this)}}" ng-if="$column.show(this) && !$column.headerTemplateTd(this)">
-    <a role="button" id="id_{{$index}}" aria-describedby="sortDescription_{{$index}}" tabindex="0" ng-if="$column.sortable(this) && (template || $column.title(this))" ng-click="sortBy($column, $event)"
+    <a role="button" id="id_{{$index}}" ng-attr-aria-describedby="{{ !$column.sortable(this) || (params.sorting()[$column.sortable(this)] != 'asc' && params.sorting()[$column.sortable(this)] != 'desc') ? 'sortDescription_' + $index : '' }}" tabindex="0" ng-if="$column.sortable(this) && (template || $column.title(this))" ng-click="sortBy($column, $event)"
       ng-keydown="(($event.key === 'Enter' || $event.key === ' ' || $event.key === '32') && sortBy($column, $event)) || $event.keyCode == 9" class="sort-button">
       <div ng-if="!template" class="ng-table-header" ng-class="{'sort-indicator': params.settings().sortingIndicator == 'div'}">
         <span ng-bind="$column.title(this)" ng-class="{'sort-indicator': params.settings().sortingIndicator == 'span'}">{{$column.title(this)}}</span>
@@ -18,8 +18,8 @@
       <div ng-if="template" ng-include="template"></div>    
     </a>
     <!-- Visually hidden element to be used for aria-describedby for sorting button -->
-    <div id="sortDescription_{{$index}}" tabindex="-1" class="sr-only" aria-live="polite" ng-bind="$column.sortDescription(this)"></div>    
-    <div id="sortLive_{{$index}}" tabindex="-1" class="sr-only" aria-live="polite" ng-bind="sortLive[$column.sortable(this)]"></div>
+    <div ng-if="$column.sortable(this)" id="sortDescription_{{$index}}" tabindex="-1" class="sr-only" aria-live="polite" ng-bind="$column.sortDescription(this)"></div>    
+    <div ng-if="$column.sortable(this)" id="sortLive_{{$index}}" tabindex="-1" class="sr-only" aria-live="assertive" ng-bind="sortLive[$column.sortable(this)]"></div>
     <!--This header column is used for non-sortable columns.-->
     <div ng-if="!$column.sortable(this) && (template || $column.title(this))">
       <div ng-if="!template" class="ng-table-header">
