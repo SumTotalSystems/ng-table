@@ -18,8 +18,8 @@
       <div ng-if="template" ng-include="template"></div>    
     </a>
     <!-- Visually hidden element to be used for aria-describedby for sorting button -->
-    <div ng-if="$column.sortable(this)" id="sortDescription_{{$index}}" tabindex="-1" class="sr-only" aria-live="polite" ng-bind="$column.sortDescription(this)"></div>    
-    <div ng-if="$column.sortable(this)" id="sortLive_{{$index}}" tabindex="-1" class="sr-only" aria-live="assertive" ng-bind="sortLive[$column.sortable(this)]"></div>
+    <div ng-if="$column.sortable(this) && (params.sorting()[$column.sortable(this)]!='asc' && params.sorting()[$column.sortable(this)]!='desc')" id="sortDescription_{{$index}}" tabindex="-1" class="sr-only" aria-live="polite" ng-bind="$column.sortDescription(this)"></div>    
+    <div ng-if="$column.sortable(this)" id="sortLive_{{$index}}" tabindex="-1" class="sr-only" aria-live="polite" ng-bind="sortLive[$column.sortable(this)]"></div>
     <!--This header column is used for non-sortable columns.-->
     <div ng-if="!$column.sortable(this) && (template || $column.title(this))">
       <div ng-if="!template" class="ng-table-header">
