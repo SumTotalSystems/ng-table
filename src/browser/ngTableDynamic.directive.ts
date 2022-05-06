@@ -42,9 +42,9 @@ export function ngTableDynamic () : IDirective{
 
             // IE 8 fix :not(.ng-table-group) selector
             ng1.forEach(tElement.find('tr'), function(tr) {
-                tr = ng1.element(tr);
-                if (!tr.hasClass('ng-table-group') && !row) {
-                    row = tr;
+                var tr1 = ng1.element(tr);
+                if (!tr1.hasClass('ng-table-group') && !row) {
+                    row = tr1;
                 }
             });
             if (!row) {

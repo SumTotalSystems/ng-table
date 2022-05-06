@@ -82,7 +82,7 @@ export function ngTableController<T>(
         if (currentParams.hasFilterChanges()) {
             var applyFilter = function () {
                 currentParams.page(1);
-                currentParams.reload();
+                currentParams.reload().catch(ng1.noop);
             };
             if (filterOptions.filterDelay) {
                 delayFilter(applyFilter, filterOptions.filterDelay);
@@ -90,7 +90,7 @@ export function ngTableController<T>(
                 applyFilter();
             }
         } else {
-            currentParams.reload();
+            currentParams.reload().catch(ng1.noop);
         }
     }
 
@@ -103,7 +103,7 @@ export function ngTableController<T>(
             return;
         }
 
-        newParams.reload();
+        newParams.reload().catch(ng1.noop);
     }, false);
 
     $scope.$watch('params.isDataReloadRequired()', onDataReloadStatusChange);
@@ -125,7 +125,7 @@ export function ngTableController<T>(
                 }
             });
             if (!theadFound) {
-                headerTemplate = ng1.element('<thead ng-include="templates.header"></thead>', $document);
+                headerTemplate = ng1.element('<thead ng-include="templates.header"></thead>', $document); 
                 $element.prepend(headerTemplate);
             }
             var paginationTemplate = ng1.element(
@@ -241,7 +241,9 @@ export function ngTableController<T>(
             }
         } else {
             $scope.$watch<boolean>('params.hasGroup()', function (newValue) {
-                $scope.$groupRow.show = newValue;
+                if (newValue !== undefined) {
+                    $scope.$groupRow.show = newValue;
+                }
             });
         }
     }

@@ -1,5 +1,7 @@
 // this file is only being used by karma
 
+import './util/jasmine-extensions';
+
 /*
  * Ok, this is kinda crazy. We can use the the context method on
  * require that webpack created in order to tell webpack

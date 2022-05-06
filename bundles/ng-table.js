@@ -43,16 +43,18 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
 /******/
-/******/ 	// identity function for calling harmory imports with the correct context
+/******/ 	// identity function for calling harmony imports with the correct context
 /******/ 	__webpack_require__.i = function(value) { return value; };
 /******/
-/******/ 	// define getter function for harmory exports
+/******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		Object.defineProperty(exports, name, {
-/******/ 			configurable: false,
-/******/ 			enumerable: true,
-/******/ 			get: getter
-/******/ 		});
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -71,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 33);
+/******/ 	return __webpack_require__(__webpack_require__.s = 31);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -87,99 +89,123 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_0__;
 
 /***/ },
 /* 1 */
-/* unknown exports provided */
-/* all exports used */
+/* exports provided: default */
+/* exports used: default */
 /*!******************************!*\
   !*** ./src/browser/index.ts ***!
   \******************************/
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-"use strict";
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
-var angular = __webpack_require__(/*! angular */ 0);
-var ngTable_directive_1 = __webpack_require__(/*! ./ngTable.directive */ 4);
-var ngTableColumn_1 = __webpack_require__(/*! ./ngTableColumn */ 5);
-var ngTableColumnsBinding_directive_1 = __webpack_require__(/*! ./ngTableColumnsBinding.directive */ 6);
-var ngTableController_1 = __webpack_require__(/*! ./ngTableController */ 7);
-var ngTableDynamic_directive_1 = __webpack_require__(/*! ./ngTableDynamic.directive */ 8);
-var ngTableFilterConfig_1 = __webpack_require__(/*! ./ngTableFilterConfig */ 9);
-var ngTableFilterRow_directive_1 = __webpack_require__(/*! ./ngTableFilterRow.directive */ 10);
-var ngTableFilterRowController_1 = __webpack_require__(/*! ./ngTableFilterRowController */ 11);
-var ngTableGroupRow_directive_1 = __webpack_require__(/*! ./ngTableGroupRow.directive */ 12);
-var ngTableGroupRowController_1 = __webpack_require__(/*! ./ngTableGroupRowController */ 13);
-var ngTablePagination_directive_1 = __webpack_require__(/*! ./ngTablePagination.directive */ 14);
-var ngTableSelectFilterDs_directive_1 = __webpack_require__(/*! ./ngTableSelectFilterDs.directive */ 15);
-var ngTableSorterRow_directive_1 = __webpack_require__(/*! ./ngTableSorterRow.directive */ 16);
-var ngTableSorterRowController_1 = __webpack_require__(/*! ./ngTableSorterRowController */ 17);
-__webpack_require__(/*! ./filters/number.html */ 25);
-__webpack_require__(/*! ./filters/select.html */ 27);
-__webpack_require__(/*! ./filters/select-multiple.html */ 26);
-__webpack_require__(/*! ./filters/text.html */ 28);
-__webpack_require__(/*! ./pager.html */ 31);
-__webpack_require__(/*! ./header.html */ 30);
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = angular.module('ngTable-browser', [])
-    .directive('ngTable', ngTable_directive_1.ngTable)
-    .factory('ngTableColumn', ngTableColumn_1.ngTableColumn)
-    .directive('ngTableColumnsBinding', ngTableColumnsBinding_directive_1.ngTableColumnsBinding)
-    .controller('ngTableController', ngTableController_1.ngTableController)
-    .directive('ngTableDynamic', ngTableDynamic_directive_1.ngTableDynamic)
-    .provider('ngTableFilterConfig', ngTableFilterConfig_1.ngTableFilterConfigProvider)
-    .directive('ngTableFilterRow', ngTableFilterRow_directive_1.ngTableFilterRow)
-    .controller('ngTableFilterRowController', ngTableFilterRowController_1.ngTableFilterRowController)
-    .directive('ngTableGroupRow', ngTableGroupRow_directive_1.ngTableGroupRow)
-    .controller('ngTableGroupRowController', ngTableGroupRowController_1.ngTableGroupRowController)
-    .directive('ngTablePagination', ngTablePagination_directive_1.ngTablePagination)
-    .directive('ngTableSelectFilterDs', ngTableSelectFilterDs_directive_1.ngTableSelectFilterDs)
-    .directive('ngTableSorterRow', ngTableSorterRow_directive_1.ngTableSorterRow)
-    .controller('ngTableSorterRowController', ngTableSorterRowController_1.ngTableSorterRowController);
-__export(__webpack_require__(/*! ./public-interfaces */ 18));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(/*! angular */ 0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngTable_directive__ = __webpack_require__(/*! ./ngTable.directive */ 4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngTableColumn__ = __webpack_require__(/*! ./ngTableColumn */ 5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngTableColumnsBinding_directive__ = __webpack_require__(/*! ./ngTableColumnsBinding.directive */ 6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ngTableController__ = __webpack_require__(/*! ./ngTableController */ 7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ngTableDynamic_directive__ = __webpack_require__(/*! ./ngTableDynamic.directive */ 8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ngTableFilterConfig__ = __webpack_require__(/*! ./ngTableFilterConfig */ 9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ngTableFilterRow_directive__ = __webpack_require__(/*! ./ngTableFilterRow.directive */ 10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ngTableFilterRowController__ = __webpack_require__(/*! ./ngTableFilterRowController */ 11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ngTableGroupRow_directive__ = __webpack_require__(/*! ./ngTableGroupRow.directive */ 12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ngTableGroupRowController__ = __webpack_require__(/*! ./ngTableGroupRowController */ 13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ngTablePagination_directive__ = __webpack_require__(/*! ./ngTablePagination.directive */ 14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ngTableSelectFilterDs_directive__ = __webpack_require__(/*! ./ngTableSelectFilterDs.directive */ 15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ngTableSorterRow_directive__ = __webpack_require__(/*! ./ngTableSorterRow.directive */ 16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ngTableSorterRowController__ = __webpack_require__(/*! ./ngTableSorterRowController */ 17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__filters_number_html__ = __webpack_require__(/*! ./filters/number.html */ 23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__filters_number_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__filters_number_html__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__filters_select_html__ = __webpack_require__(/*! ./filters/select.html */ 25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__filters_select_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__filters_select_html__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__filters_select_multiple_html__ = __webpack_require__(/*! ./filters/select-multiple.html */ 24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__filters_select_multiple_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__filters_select_multiple_html__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__filters_text_html__ = __webpack_require__(/*! ./filters/text.html */ 26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__filters_text_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__filters_text_html__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pager_html__ = __webpack_require__(/*! ./pager.html */ 29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pager_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19__pager_html__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__header_html__ = __webpack_require__(/*! ./header.html */ 28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__header_html___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20__header_html__);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* harmony default export */ exports["a"] = __WEBPACK_IMPORTED_MODULE_0_angular__["module"]('ngTable-browser', [])
+    .directive('ngTable', __WEBPACK_IMPORTED_MODULE_1__ngTable_directive__["a" /* ngTable */])
+    .factory('ngTableColumn', __WEBPACK_IMPORTED_MODULE_2__ngTableColumn__["a" /* ngTableColumn */])
+    .directive('ngTableColumnsBinding', __WEBPACK_IMPORTED_MODULE_3__ngTableColumnsBinding_directive__["a" /* ngTableColumnsBinding */])
+    .controller('ngTableController', __WEBPACK_IMPORTED_MODULE_4__ngTableController__["a" /* ngTableController */])
+    .directive('ngTableDynamic', __WEBPACK_IMPORTED_MODULE_5__ngTableDynamic_directive__["a" /* ngTableDynamic */])
+    .provider('ngTableFilterConfig', __WEBPACK_IMPORTED_MODULE_6__ngTableFilterConfig__["a" /* ngTableFilterConfigProvider */])
+    .directive('ngTableFilterRow', __WEBPACK_IMPORTED_MODULE_7__ngTableFilterRow_directive__["a" /* ngTableFilterRow */])
+    .controller('ngTableFilterRowController', __WEBPACK_IMPORTED_MODULE_8__ngTableFilterRowController__["a" /* ngTableFilterRowController */])
+    .directive('ngTableGroupRow', __WEBPACK_IMPORTED_MODULE_9__ngTableGroupRow_directive__["a" /* ngTableGroupRow */])
+    .controller('ngTableGroupRowController', __WEBPACK_IMPORTED_MODULE_10__ngTableGroupRowController__["a" /* ngTableGroupRowController */])
+    .directive('ngTablePagination', __WEBPACK_IMPORTED_MODULE_11__ngTablePagination_directive__["a" /* ngTablePagination */])
+    .directive('ngTableSelectFilterDs', __WEBPACK_IMPORTED_MODULE_12__ngTableSelectFilterDs_directive__["a" /* ngTableSelectFilterDs */])
+    .directive('ngTableSorterRow', __WEBPACK_IMPORTED_MODULE_13__ngTableSorterRow_directive__["a" /* ngTableSorterRow */])
+    .controller('ngTableSorterRowController', __WEBPACK_IMPORTED_MODULE_14__ngTableSorterRowController__["a" /* ngTableSorterRowController */]);
 
 
 /***/ },
 /* 2 */
-/* unknown exports provided */
-/* all exports used */
+/* exports provided: default */
+/* exports used: default */
 /*!***************************!*\
   !*** ./src/core/index.ts ***!
   \***************************/
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-"use strict";
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
-var angular = __webpack_require__(/*! angular */ 0);
-var ngTableDefaultGetData_1 = __webpack_require__(/*! ./ngTableDefaultGetData */ 19);
-var ngTableDefaults_1 = __webpack_require__(/*! ./ngTableDefaults */ 20);
-var ngTableParams_1 = __webpack_require__(/*! ./ngTableParams */ 22);
-var ngTableEventsChannel_1 = __webpack_require__(/*! ./ngTableEventsChannel */ 21);
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = angular.module('ngTable-core', [])
-    .provider('ngTableDefaultGetData', ngTableDefaultGetData_1.ngTableDefaultGetDataProvider)
-    .value('ngTableDefaults', ngTableDefaults_1.ngTableDefaults)
-    .factory('NgTableParams', ngTableParams_1.ngTableParamsFactory)
-    .factory('ngTableEventsChannel', ngTableEventsChannel_1.ngTableEventsChannel);
-__export(__webpack_require__(/*! ./public-interfaces */ 23));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(/*! angular */ 0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ngTableDefaultGetData__ = __webpack_require__(/*! ./ngTableDefaultGetData */ 18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ngTableDefaults__ = __webpack_require__(/*! ./ngTableDefaults */ 19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngTableParams__ = __webpack_require__(/*! ./ngTableParams */ 21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ngTableEventsChannel__ = __webpack_require__(/*! ./ngTableEventsChannel */ 20);
+
+
+
+
+
+/* harmony default export */ exports["a"] = __WEBPACK_IMPORTED_MODULE_0_angular__["module"]('ngTable-core', [])
+    .provider('ngTableDefaultGetData', __WEBPACK_IMPORTED_MODULE_1__ngTableDefaultGetData__["a" /* ngTableDefaultGetDataProvider */])
+    .value('ngTableDefaults', __WEBPACK_IMPORTED_MODULE_2__ngTableDefaults__["a" /* ngTableDefaults */])
+    .factory('NgTableParams', __WEBPACK_IMPORTED_MODULE_3__ngTableParams__["a" /* ngTableParamsFactory */])
+    .factory('ngTableEventsChannel', __WEBPACK_IMPORTED_MODULE_4__ngTableEventsChannel__["a" /* ngTableEventsChannel */]);
 
 
 /***/ },
 /* 3 */,
 /* 4 */
-/* unknown exports provided */
-/* all exports used */
+/* exports provided: ngTable */
+/* exports used: ngTable */
 /*!******************************************!*\
   !*** ./src/browser/ngTable.directive.ts ***!
   \******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-"use strict";
-var ng1 = __webpack_require__(/*! angular */ 0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(/*! angular */ 0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+/* harmony export (immutable) */ exports["a"] = ngTable;
+
 ngTable.$inject = ['$q', '$parse'];
 /**
  * Directive that instantiates {@link ngTableController ngTableController}.
@@ -208,8 +234,8 @@ function ngTable($q, $parse) {
         controller: 'ngTableController',
         compile: function (element) {
             var columns = [], i = 0, dataRow, groupRow, rows = [];
-            ng1.forEach(element.find('tr'), function (tr) {
-                rows.push(ng1.element(tr));
+            __WEBPACK_IMPORTED_MODULE_0_angular__["forEach"](element.find('tr'), function (tr) {
+                rows.push(__WEBPACK_IMPORTED_MODULE_0_angular__["element"](tr));
             });
             dataRow = rows.filter(function (tr) {
                 return !tr.hasClass('ng-table-group');
@@ -221,8 +247,8 @@ function ngTable($q, $parse) {
                 return undefined;
             }
             // Accessibility: row.children() caters for both <td> and <th> in rows of <tbody>
-            ng1.forEach(dataRow.children(), function (item) {
-                var el = ng1.element(item);
+            __WEBPACK_IMPORTED_MODULE_0_angular__["forEach"](dataRow.children(), function (item) {
+                var el = __WEBPACK_IMPORTED_MODULE_0_angular__["element"](item);
                 if (el.attr('ignore-cell') && 'true' === el.attr('ignore-cell')) {
                     return;
                 }
@@ -303,19 +329,21 @@ function ngTable($q, $parse) {
         }
     };
 }
-exports.ngTable = ngTable;
 
 
 /***/ },
 /* 5 */
-/* unknown exports provided */
-/* all exports used */
+/* exports provided: ngTableColumn */
+/* exports used: ngTableColumn */
 /*!**************************************!*\
   !*** ./src/browser/ngTableColumn.ts ***!
   \**************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(/*! angular */ 0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+/* harmony export (immutable) */ exports["a"] = ngTableColumn;
 /**
  * ngTable: Table + Angular JS
  *
@@ -323,8 +351,7 @@ exports.ngTable = ngTable;
  * @url https://github.com/esvit/ng-table/
  * @license New BSD License <http://creativecommons.org/licenses/BSD/>
  */
-"use strict";
-var ng1 = __webpack_require__(/*! angular */ 0);
+
 ngTableColumn.$inject = [];
 /**
  * @private
@@ -343,13 +370,13 @@ function ngTableColumn() {
             if (extendedCol[prop] === undefined) {
                 extendedCol[prop] = defaults[prop];
             }
-            if (!ng1.isFunction(extendedCol[prop])) {
+            if (!__WEBPACK_IMPORTED_MODULE_0_angular__["isFunction"](extendedCol[prop])) {
                 // wrap raw field values with "getter" functions
                 // - this is to ensure consistency with how ngTable.compile builds columns
                 // - note that the original column object is being "proxied"; this is important
                 //   as it ensure that any changes to the original object will be returned by the "getter"
                 (function (prop1) {
-                    var getterSetter = function getterSetter() {
+                    var getterSetter = function getterSetter( /*[value] || [$scope, locals]*/) {
                         if (arguments.length === 1 && !isScopeLike(arguments[0])) {
                             getterSetter.assign(null, arguments[0]);
                         }
@@ -373,7 +400,7 @@ function ngTableColumn() {
                     else {
                         var scope = arguments[0] || defaultScope;
                         var context = Object.create(scope);
-                        ng1.extend(context, {
+                        __WEBPACK_IMPORTED_MODULE_0_angular__["extend"](context, {
                             $column: extendedCol,
                             $columns: columns
                         });
@@ -392,7 +419,7 @@ function ngTableColumn() {
             'class': createGetterSetter(''),
             filter: createGetterSetter(false),
             groupable: createGetterSetter(false),
-            filterData: ng1.noop,
+            filterData: __WEBPACK_IMPORTED_MODULE_0_angular__["noop"],
             headerTemplateURL: createGetterSetter(false),
             headerTemplateTd: createGetterSetter(false),
             headerTitle: createGetterSetter(''),
@@ -405,7 +432,7 @@ function ngTableColumn() {
     }
     function createGetterSetter(initialValue) {
         var value = initialValue;
-        var getterSetter = function getterSetter() {
+        var getterSetter = function getterSetter( /*[value] || [$scope, locals]*/) {
             if (arguments.length === 1 && !isScopeLike(arguments[0])) {
                 getterSetter.assign(null, arguments[0]);
             }
@@ -419,22 +446,22 @@ function ngTableColumn() {
         return getterSetter;
     }
     function isScopeLike(object) {
-        return object != null && ng1.isFunction(object.$new);
+        return object != null && __WEBPACK_IMPORTED_MODULE_0_angular__["isFunction"](object.$new);
     }
 }
-exports.ngTableColumn = ngTableColumn;
 
 
 /***/ },
 /* 6 */
-/* unknown exports provided */
-/* all exports used */
+/* exports provided: ngTableColumnsBinding */
+/* exports used: ngTableColumnsBinding */
 /*!********************************************************!*\
   !*** ./src/browser/ngTableColumnsBinding.directive.ts ***!
   \********************************************************/
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 "use strict";
+/* harmony export (immutable) */ exports["a"] = ngTableColumnsBinding;
 /**
  * ngTable: Table + Angular JS
  *
@@ -442,7 +469,6 @@ exports.ngTableColumn = ngTableColumn;
  * @url https://github.com/esvit/ng-table/
  * @license New BSD License <http://creativecommons.org/licenses/BSD/>
  */
-"use strict";
 ngTableColumnsBinding.$inject = ["$parse"];
 /**
  * One-way data binds the $columns array generated by ngTable/ngTableDynamic to the specified
@@ -474,19 +500,21 @@ function ngTableColumnsBinding($parse) {
         }
     }
 }
-exports.ngTableColumnsBinding = ngTableColumnsBinding;
 
 
 /***/ },
 /* 7 */
-/* unknown exports provided */
-/* all exports used */
+/* exports provided: ngTableController */
+/* exports used: ngTableController */
 /*!******************************************!*\
   !*** ./src/browser/ngTableController.ts ***!
   \******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(/*! angular */ 0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+/* harmony export (immutable) */ exports["a"] = ngTableController;
 /**
  * ngTable: Table + Angular JS
  *
@@ -494,8 +522,7 @@ exports.ngTableColumnsBinding = ngTableColumnsBinding;
  * @url https://github.com/esvit/ng-table/
  * @license New BSD License <http://creativecommons.org/licenses/BSD/>
  */
-"use strict";
-var ng1 = __webpack_require__(/*! angular */ 0);
+
 ngTableController.$inject = [
     '$scope', 'NgTableParams', '$timeout', '$parse', '$compile', '$attrs', '$element', '$document', 'ngTableColumn', 'ngTableEventsChannel'
 ];
@@ -528,7 +555,7 @@ function ngTableController($scope, NgTableParams, $timeout, $parse, $compile, $a
         if (currentParams.hasFilterChanges()) {
             var applyFilter = function () {
                 currentParams.page(1);
-                currentParams.reload();
+                currentParams.reload().catch(__WEBPACK_IMPORTED_MODULE_0_angular__["noop"]);
             };
             if (filterOptions.filterDelay) {
                 delayFilter(applyFilter, filterOptions.filterDelay);
@@ -538,7 +565,7 @@ function ngTableController($scope, NgTableParams, $timeout, $parse, $compile, $a
             }
         }
         else {
-            currentParams.reload();
+            currentParams.reload().catch(__WEBPACK_IMPORTED_MODULE_0_angular__["noop"]);
         }
     }
     // watch for when a new NgTableParams is bound to the scope
@@ -549,7 +576,7 @@ function ngTableController($scope, NgTableParams, $timeout, $parse, $compile, $a
         if (newParams === oldParams || !newParams) {
             return;
         }
-        newParams.reload();
+        newParams.reload().catch(__WEBPACK_IMPORTED_MODULE_0_angular__["noop"]);
     }, false);
     $scope.$watch('params.isDataReloadRequired()', onDataReloadStatusChange);
     this.compileDirectiveTemplates = function () {
@@ -562,16 +589,16 @@ function ngTableController($scope, NgTableParams, $timeout, $parse, $compile, $a
             var headerTemplate = null;
             // $element.find('> thead').length === 0 doesn't work on jqlite
             var theadFound = false;
-            ng1.forEach($element.children(), function (e) {
+            __WEBPACK_IMPORTED_MODULE_0_angular__["forEach"]($element.children(), function (e) {
                 if (e.tagName === 'THEAD') {
                     theadFound = true;
                 }
             });
             if (!theadFound) {
-                headerTemplate = ng1.element('<thead ng-include="templates.header"></thead>', $document);
+                headerTemplate = __WEBPACK_IMPORTED_MODULE_0_angular__["element"]('<thead ng-include="templates.header"></thead>', $document);
                 $element.prepend(headerTemplate);
             }
-            var paginationTemplate = ng1.element('<div ng-table-pagination="params" template-url="templates.pagination"></div>', $document);
+            var paginationTemplate = __WEBPACK_IMPORTED_MODULE_0_angular__["element"]('<div ng-table-pagination="params" template-url="templates.pagination"></div>', $document);
             $element.after(paginationTemplate);
             if (headerTemplate) {
                 $compile(headerTemplate)($scope);
@@ -580,7 +607,7 @@ function ngTableController($scope, NgTableParams, $timeout, $parse, $compile, $a
         }
     };
     this.loadFilterData = function ($columns) {
-        ng1.forEach($columns, function ($column) {
+        __WEBPACK_IMPORTED_MODULE_0_angular__["forEach"]($columns, function ($column) {
             var result = $column.filterData($scope);
             if (!result) {
                 delete $column.filterData;
@@ -590,13 +617,14 @@ function ngTableController($scope, NgTableParams, $timeout, $parse, $compile, $a
                 delete $column.filterData;
                 return result.then(function (data) {
                     // our deferred can eventually return arrays, functions and objects
-                    if (!ng1.isArray(data) && !ng1.isFunction(data) && !ng1.isObject(data)) {
+                    if (!__WEBPACK_IMPORTED_MODULE_0_angular__["isArray"](data) && !__WEBPACK_IMPORTED_MODULE_0_angular__["isFunction"](data) && !__WEBPACK_IMPORTED_MODULE_0_angular__["isObject"](data)) {
                         // if none of the above was found - we just want an empty array
                         data = [];
                     }
                     $column.data = data;
                 });
             }
+            // otherwise, we just return what the user gave us. It could be a function, array, object, whatever
             else {
                 return $column.data = result;
             }
@@ -671,7 +699,9 @@ function ngTableController($scope, NgTableParams, $timeout, $parse, $compile, $a
         }
         else {
             $scope.$watch('params.hasGroup()', function (newValue) {
-                $scope.$groupRow.show = newValue;
+                if (newValue !== undefined) {
+                    $scope.$groupRow.show = newValue;
+                }
             });
         }
     }
@@ -716,19 +746,21 @@ function ngTableController($scope, NgTableParams, $timeout, $parse, $compile, $a
     }
     commonInit();
 }
-exports.ngTableController = ngTableController;
 
 
 /***/ },
 /* 8 */
-/* unknown exports provided */
-/* all exports used */
+/* exports provided: ngTableDynamic */
+/* exports used: ngTableDynamic */
 /*!*************************************************!*\
   !*** ./src/browser/ngTableDynamic.directive.ts ***!
   \*************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(/*! angular */ 0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+/* harmony export (immutable) */ exports["a"] = ngTableDynamic;
 /**
  * ngTable: Table + Angular JS
  *
@@ -736,8 +768,7 @@ exports.ngTableController = ngTableController;
  * @url https://github.com/esvit/ng-table/
  * @license New BSD License <http://creativecommons.org/licenses/BSD/>
  */
-"use strict";
-var ng1 = __webpack_require__(/*! angular */ 0);
+
 ngTableDynamic.$inject = [];
 /**
  * A dynamic version of the {@link ngTable ngTable} directive that accepts a dynamic list of columns
@@ -762,17 +793,17 @@ function ngTableDynamic() {
         compile: function (tElement) {
             var row;
             // IE 8 fix :not(.ng-table-group) selector
-            ng1.forEach(tElement.find('tr'), function (tr) {
-                tr = ng1.element(tr);
-                if (!tr.hasClass('ng-table-group') && !row) {
-                    row = tr;
+            __WEBPACK_IMPORTED_MODULE_0_angular__["forEach"](tElement.find('tr'), function (tr) {
+                var tr1 = __WEBPACK_IMPORTED_MODULE_0_angular__["element"](tr);
+                if (!tr1.hasClass('ng-table-group') && !row) {
+                    row = tr1;
                 }
             });
             if (!row) {
                 return undefined;
             }
-            ng1.forEach(row.find('td'), function (item) {
-                var el = ng1.element(item);
+            __WEBPACK_IMPORTED_MODULE_0_angular__["forEach"](row.find('td'), function (item) {
+                var el = __WEBPACK_IMPORTED_MODULE_0_angular__["element"](item);
                 var getAttrValue = function (attr) {
                     return el.attr('x-data-' + attr) || el.attr('data-' + attr) || el.attr(attr);
                 };
@@ -798,19 +829,21 @@ function ngTableDynamic() {
         }
     };
 }
-exports.ngTableDynamic = ngTableDynamic;
 
 
 /***/ },
 /* 9 */
-/* unknown exports provided */
-/* all exports used */
+/* exports provided: ngTableFilterConfigProvider */
+/* exports used: ngTableFilterConfigProvider */
 /*!********************************************!*\
   !*** ./src/browser/ngTableFilterConfig.ts ***!
   \********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(/*! angular */ 0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+/* harmony export (immutable) */ exports["a"] = ngTableFilterConfigProvider;
 /**
  * ngTable: Table + Angular JS
  *
@@ -818,8 +851,7 @@ exports.ngTableDynamic = ngTableDynamic;
  * @url https://github.com/esvit/ng-table/
  * @license New BSD License <http://creativecommons.org/licenses/BSD/>
  */
-"use strict";
-var ng1 = __webpack_require__(/*! angular */ 0);
+
 ngTableFilterConfigProvider.$inject = [];
 /**
  * The angular provider used to configure the behaviour of the `ngTableFilterConfig` service.
@@ -845,8 +877,8 @@ function ngTableFilterConfigProvider() {
         config = defaultConfig;
     }
     function setConfig(customConfig) {
-        var mergeConfig = ng1.extend({}, config, customConfig);
-        mergeConfig.aliasUrls = ng1.extend({}, config.aliasUrls, customConfig.aliasUrls);
+        var mergeConfig = __WEBPACK_IMPORTED_MODULE_0_angular__["extend"]({}, config, customConfig);
+        mergeConfig.aliasUrls = __WEBPACK_IMPORTED_MODULE_0_angular__["extend"]({}, config.aliasUrls, customConfig.aliasUrls);
         config = mergeConfig;
     }
     /////////
@@ -860,7 +892,7 @@ function ngTableFilterConfigProvider() {
         };
         Object.defineProperty(service, "config", {
             get: function () {
-                return publicConfig = publicConfig || ng1.copy(config);
+                return publicConfig = publicConfig || __WEBPACK_IMPORTED_MODULE_0_angular__["copy"](config);
             },
             enumerable: true
         });
@@ -884,19 +916,19 @@ function ngTableFilterConfigProvider() {
         }
     }
 }
-exports.ngTableFilterConfigProvider = ngTableFilterConfigProvider;
 
 
 /***/ },
 /* 10 */
-/* unknown exports provided */
-/* all exports used */
+/* exports provided: ngTableFilterRow */
+/* exports used: ngTableFilterRow */
 /*!***************************************************!*\
   !*** ./src/browser/ngTableFilterRow.directive.ts ***!
   \***************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
+/* harmony export (immutable) */ exports["a"] = ngTableFilterRow;
 /**
  * ngTable: Table + Angular JS
  *
@@ -904,8 +936,7 @@ exports.ngTableFilterConfigProvider = ngTableFilterConfigProvider;
  * @url https://github.com/esvit/ng-table/
  * @license New BSD License <http://creativecommons.org/licenses/BSD/>
  */
-"use strict";
-var templateUrl = __webpack_require__(/*! ./filterRow.html */ 24);
+var templateUrl = __webpack_require__(/*! ./filterRow.html */ 22);
 ngTableFilterRow.$inject = [];
 /**
  * directive that renders the filter header row for a table
@@ -925,19 +956,19 @@ function ngTableFilterRow() {
     };
     return directive;
 }
-exports.ngTableFilterRow = ngTableFilterRow;
 
 
 /***/ },
 /* 11 */
-/* unknown exports provided */
-/* all exports used */
+/* exports provided: ngTableFilterRowController */
+/* exports used: ngTableFilterRowController */
 /*!***************************************************!*\
   !*** ./src/browser/ngTableFilterRowController.ts ***!
   \***************************************************/
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 "use strict";
+/* harmony export (immutable) */ exports["a"] = ngTableFilterRowController;
 /**
  * ngTable: Table + Angular JS
  *
@@ -945,7 +976,6 @@ exports.ngTableFilterRow = ngTableFilterRow;
  * @url https://github.com/esvit/ng-table/
  * @license New BSD License <http://creativecommons.org/licenses/BSD/>
  */
-"use strict";
 ngTableFilterRowController.$inject = ['$scope', 'ngTableFilterConfig'];
 /**
  * Controller for the {@link ngTableFilterRow ngTableFilterRow} directive
@@ -969,19 +999,19 @@ function ngTableFilterRowController($scope, ngTableFilterConfig) {
         }
     };
 }
-exports.ngTableFilterRowController = ngTableFilterRowController;
 
 
 /***/ },
 /* 12 */
-/* unknown exports provided */
-/* all exports used */
+/* exports provided: ngTableGroupRow */
+/* exports used: ngTableGroupRow */
 /*!**************************************************!*\
   !*** ./src/browser/ngTableGroupRow.directive.ts ***!
   \**************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
+/* harmony export (immutable) */ exports["a"] = ngTableGroupRow;
 /**
  * ngTable: Table + Angular JS
  *
@@ -989,8 +1019,7 @@ exports.ngTableFilterRowController = ngTableFilterRowController;
  * @url https://github.com/esvit/ng-table/
  * @license New BSD License <http://creativecommons.org/licenses/BSD/>
  */
-"use strict";
-var templateUrl = __webpack_require__(/*! ./groupRow.html */ 29);
+var templateUrl = __webpack_require__(/*! ./groupRow.html */ 27);
 ngTableGroupRow.$inject = [];
 /**
  * directive that renders the group header row for a table
@@ -1011,19 +1040,19 @@ function ngTableGroupRow() {
     };
     return directive;
 }
-exports.ngTableGroupRow = ngTableGroupRow;
 
 
 /***/ },
 /* 13 */
-/* unknown exports provided */
-/* all exports used */
+/* exports provided: ngTableGroupRowController */
+/* exports used: ngTableGroupRowController */
 /*!**************************************************!*\
   !*** ./src/browser/ngTableGroupRowController.ts ***!
   \**************************************************/
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 "use strict";
+/* harmony export (immutable) */ exports["a"] = ngTableGroupRowController;
 /**
  * ngTable: Table + Angular JS
  *
@@ -1031,7 +1060,6 @@ exports.ngTableGroupRow = ngTableGroupRow;
  * @url https://github.com/esvit/ng-table/
  * @license New BSD License <http://creativecommons.org/licenses/BSD/>
  */
-"use strict";
 ngTableGroupRowController.$inject = ['$scope'];
 /**
  * Controller for the {@link ngTableGroupRow ngTableGroupRow} directive
@@ -1135,19 +1163,21 @@ function ngTableGroupRowController($scope) {
         return $scope.params.reload();
     }
 }
-exports.ngTableGroupRowController = ngTableGroupRowController;
 
 
 /***/ },
 /* 14 */
-/* unknown exports provided */
-/* all exports used */
+/* exports provided: ngTablePagination */
+/* exports used: ngTablePagination */
 /*!****************************************************!*\
   !*** ./src/browser/ngTablePagination.directive.ts ***!
   \****************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(/*! angular */ 0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+/* harmony export (immutable) */ exports["a"] = ngTablePagination;
 /**
  * ngTable: Table + Angular JS
  *
@@ -1155,8 +1185,7 @@ exports.ngTableGroupRowController = ngTableGroupRowController;
  * @url https://github.com/esvit/ng-table/
  * @license New BSD License <http://creativecommons.org/licenses/BSD/>
  */
-"use strict";
-var ng1 = __webpack_require__(/*! angular */ 0);
+
 ngTablePagination.$inject = ['$compile', '$document', 'ngTableEventsChannel', '$timeout'];
 /**
  * Directive that renders the table pagination controls
@@ -1183,7 +1212,7 @@ function ngTablePagination($compile, $document, ngTableEventsChannel, $timeout) 
             ngTableEventsChannel.onPagesChanged(function (pubParams) {
                 if (pubParams.focusElement) {
                     $timeout(function () {
-                        var theElement = ng1.element(document.querySelector('#' + pubParams.focusElement))[0];
+                        var theElement = __WEBPACK_IMPORTED_MODULE_0_angular__["element"](document.querySelector('#' + pubParams.focusElement))[0];
                         theElement.focus();
                     });
                 }
@@ -1194,26 +1223,26 @@ function ngTablePagination($compile, $document, ngTableEventsChannel, $timeout) 
                 if (templateUrl === undefined) {
                     return;
                 }
-                var template = ng1.element('<div ng-include="templateUrl"></div>', $document);
+                var template = __WEBPACK_IMPORTED_MODULE_0_angular__["element"]('<div ng-include="templateUrl"></div>', $document);
                 element.append(template);
                 $compile(template)(scope);
             });
         }
     };
 }
-exports.ngTablePagination = ngTablePagination;
 
 
 /***/ },
 /* 15 */
-/* unknown exports provided */
-/* all exports used */
+/* exports provided: ngTableSelectFilterDs */
+/* exports used: ngTableSelectFilterDs */
 /*!********************************************************!*\
   !*** ./src/browser/ngTableSelectFilterDs.directive.ts ***!
   \********************************************************/
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ngTableSelectFilterDs; });
 /**
  * ngTable: Table + Angular JS
  *
@@ -1221,7 +1250,6 @@ exports.ngTablePagination = ngTablePagination;
  * @url https://github.com/esvit/ng-table/
  * @license New BSD License <http://creativecommons.org/licenses/BSD/>
  */
-"use strict";
 ngTableSelectFilterDs.$inject = [];
 /**
  * Takes the array returned by $column.filterData and makes it available as `$selectData` on the `$scope`.
@@ -1242,7 +1270,6 @@ function ngTableSelectFilterDs() {
     };
     return directive;
 }
-exports.ngTableSelectFilterDs = ngTableSelectFilterDs;
 ngTableSelectFilterDsController.$inject = ['$scope', '$parse', '$attrs', '$q'];
 function ngTableSelectFilterDsController($scope, $parse, $attrs, $q) {
     var $column;
@@ -1285,16 +1312,18 @@ function ngTableSelectFilterDsController($scope, $parse, $attrs, $q) {
 }
 
 
+
 /***/ },
 /* 16 */
-/* unknown exports provided */
-/* all exports used */
+/* exports provided: ngTableSorterRow */
+/* exports used: ngTableSorterRow */
 /*!***************************************************!*\
   !*** ./src/browser/ngTableSorterRow.directive.ts ***!
   \***************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
+/* harmony export (immutable) */ exports["a"] = ngTableSorterRow;
 /**
  * ngTable: Table + Angular JS
  *
@@ -1302,8 +1331,7 @@ function ngTableSelectFilterDsController($scope, $parse, $attrs, $q) {
  * @url https://github.com/esvit/ng-table/
  * @license New BSD License <http://creativecommons.org/licenses/BSD/>
  */
-"use strict";
-var templateUrl = __webpack_require__(/*! ./sorterRow.html */ 32);
+var templateUrl = __webpack_require__(/*! ./sorterRow.html */ 30);
 ngTableSorterRow.$inject = [];
 /**
  * directive that renders the sorting header row for a table
@@ -1323,20 +1351,19 @@ function ngTableSorterRow() {
     };
     return directive;
 }
-exports.ngTableSorterRow = ngTableSorterRow;
 
 
 /***/ },
 /* 17 */
-/* unknown exports provided */
-/* all exports used */
+/* exports provided: ngTableSorterRowController */
+/* exports used: ngTableSorterRowController */
 /*!***************************************************!*\
   !*** ./src/browser/ngTableSorterRowController.ts ***!
   \***************************************************/
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-"use strict";
+/* harmony export (immutable) */ exports["a"] = ngTableSorterRowController;
 ngTableSorterRowController.$inject = ['$scope'];
 /**
  * Controller for the {@link ngTableSorterRow ngTableSorterRow} directive
@@ -1403,32 +1430,21 @@ function ngTableSorterRowController($scope) {
         });
     }
 }
-exports.ngTableSorterRowController = ngTableSorterRowController;
 
 
 /***/ },
 /* 18 */
-/* unknown exports provided */
-/* all exports used */
-/*!******************************************!*\
-  !*** ./src/browser/public-interfaces.ts ***!
-  \******************************************/
-/***/ function(module, exports) {
-
-"use strict";
-"use strict";
-
-
-/***/ },
-/* 19 */
-/* unknown exports provided */
-/* all exports used */
+/* exports provided: ngTableDefaultGetDataProvider */
+/* exports used: ngTableDefaultGetDataProvider */
 /*!*******************************************!*\
   !*** ./src/core/ngTableDefaultGetData.ts ***!
   \*******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(/*! angular */ 0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ngTableDefaultGetDataProvider; });
 /**
  * ngTable: Table + Angular JS
  *
@@ -1436,8 +1452,7 @@ exports.ngTableSorterRowController = ngTableSorterRowController;
  * @url https://github.com/esvit/ng-table/
  * @license New BSD License <http://creativecommons.org/licenses/BSD/>
  */
-"use strict";
-var ng1 = __webpack_require__(/*! angular */ 0);
+
 /**
  * Allows for the configuration of the ngTableDefaultGetData service.
  *
@@ -1452,7 +1467,7 @@ var ng1 = __webpack_require__(/*! angular */ 0);
  *
  * @ngdoc provider
  */
-var ngTableDefaultGetDataProvider = (function () {
+var ngTableDefaultGetDataProvider = /** @class */ (function () {
     function ngTableDefaultGetDataProvider() {
         this.filterFilterName = 'filter';
         this.sortingFilterName = 'orderBy';
@@ -1472,7 +1487,7 @@ var ngTableDefaultGetDataProvider = (function () {
             return getData;
             function getFilterFn(params) {
                 var filterOptions = params.settings().filterOptions;
-                if (ng1.isFunction(filterOptions.filterFn)) {
+                if (__WEBPACK_IMPORTED_MODULE_0_angular__["isFunction"](filterOptions.filterFn)) {
                     return filterOptions.filterFn;
                 }
                 else {
@@ -1509,7 +1524,7 @@ var ngTableDefaultGetDataProvider = (function () {
                 if (data == null) {
                     return [];
                 }
-                var options = ng1.extend({}, defaultDataOptions, params.settings().dataOptions);
+                var options = __WEBPACK_IMPORTED_MODULE_0_angular__["extend"]({}, defaultDataOptions, params.settings().dataOptions);
                 var fData = options.applyFilter ? applyFilter(data, params) : data;
                 var orderedData = options.applySort ? applySort(fData, params) : fData;
                 return options.applyPaging ? applyPaging(orderedData, params) : orderedData;
@@ -1535,19 +1550,20 @@ var ngTableDefaultGetDataProvider = (function () {
     }
     return ngTableDefaultGetDataProvider;
 }());
-exports.ngTableDefaultGetDataProvider = ngTableDefaultGetDataProvider;
+
 
 
 /***/ },
-/* 20 */
-/* unknown exports provided */
-/* all exports used */
+/* 19 */
+/* exports provided: ngTableDefaults */
+/* exports used: ngTableDefaults */
 /*!*************************************!*\
   !*** ./src/core/ngTableDefaults.ts ***!
   \*************************************/
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return ngTableDefaults; });
 /**
  * ngTable: Table + Angular JS
  *
@@ -1555,27 +1571,29 @@ exports.ngTableDefaultGetDataProvider = ngTableDefaultGetDataProvider;
  * @url https://github.com/esvit/ng-table/
  * @license New BSD License <http://creativecommons.org/licenses/BSD/>
  */
-"use strict";
 /**
  * Default values for ngTable
  * @ngdoc object
  */
-exports.ngTableDefaults = {
+var ngTableDefaults = {
     params: {},
     settings: {}
 };
 
 
 /***/ },
-/* 21 */
-/* unknown exports provided */
-/* all exports used */
+/* 20 */
+/* exports provided: ngTableEventsChannel */
+/* exports used: ngTableEventsChannel */
 /*!******************************************!*\
   !*** ./src/core/ngTableEventsChannel.ts ***!
   \******************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(/*! angular */ 0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+/* harmony export (immutable) */ exports["a"] = ngTableEventsChannel;
 /**
  * ngTable: Table + Angular JS
  *
@@ -1583,8 +1601,7 @@ exports.ngTableDefaults = {
  * @url https://github.com/esvit/ng-table/
  * @license New BSD License <http://creativecommons.org/licenses/BSD/>
  */
-"use strict";
-var ng1 = __webpack_require__(/*! angular */ 0);
+
 ngTableEventsChannel.$inject = ['$rootScope'];
 /**
  * Implementation of the {@link IEventsChannel IEventsChannel} interface
@@ -1599,14 +1616,13 @@ function ngTableEventsChannel($rootScope) {
     return events;
     //////////
     function addTableParamsEvent(eventName, target) {
+        var _a;
         var fnName = eventName.charAt(0).toUpperCase() + eventName.substring(1);
         var event = (_a = {},
             _a['on' + fnName] = createEventSubscriptionFn(eventName),
             _a['publish' + fnName] = createPublishEventFn(eventName),
-            _a
-        );
-        return ng1.extend(target, event);
-        var _a;
+            _a);
+        return __WEBPACK_IMPORTED_MODULE_0_angular__["extend"](target, event);
     }
     function createEventSubscriptionFn(eventName) {
         return function subscription(handler, eventSelectorOrScope, eventSelector) {
@@ -1656,25 +1672,27 @@ function ngTableEventsChannel($rootScope) {
         return function publish() {
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i - 0] = arguments[_i];
+                args[_i] = arguments[_i];
             }
             $rootScope.$broadcast.apply($rootScope, ['ngTable:' + eventName].concat(args));
         };
     }
 }
-exports.ngTableEventsChannel = ngTableEventsChannel;
 
 
 /***/ },
-/* 22 */
-/* unknown exports provided */
-/* all exports used */
+/* 21 */
+/* exports provided: ngTableParamsFactory */
+/* exports used: ngTableParamsFactory */
 /*!***********************************!*\
   !*** ./src/core/ngTableParams.ts ***!
   \***********************************/
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(/*! angular */ 0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+/* harmony export (immutable) */ exports["a"] = ngTableParamsFactory;
 /**
  * ngTable: Table + Angular JS
  *
@@ -1682,8 +1700,7 @@ exports.ngTableEventsChannel = ngTableEventsChannel;
  * @url https://github.com/esvit/ng-table/
  * @license New BSD License <http://creativecommons.org/licenses/BSD/>
  */
-"use strict";
-var ng1 = __webpack_require__(/*! angular */ 0);
+
 ngTableParamsFactory.$inject = [
     '$q', '$log', '$filter', 'ngTableDefaults', 'ngTableDefaultGetData', 'ngTableEventsChannel'
 ];
@@ -1707,7 +1724,7 @@ function ngTableParamsFactory($q, $log, $filter, ngTableDefaults, ngTableDefault
         var self = this, prevParamsMemento, errParamsMemento, isCommittedDataset = false, initialEvents = [], log = function () {
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i - 0] = arguments[_i];
+                args[_i] = arguments[_i];
             }
             if (_settings.debugMode && $log.debug) {
                 $log.debug.apply($log, args);
@@ -1743,7 +1760,7 @@ function ngTableParamsFactory($q, $log, $filter, ngTableDefaults, ngTableDefault
                         if (lastKey === 'sorting') {
                             _params[lastKey] = {};
                         }
-                        _params[lastKey] = ng1.extend(_params[lastKey] || {}, value[lastKey]);
+                        _params[lastKey] = __WEBPACK_IMPORTED_MODULE_0_angular__["extend"](_params[lastKey] || {}, value[lastKey]);
                     }
                     else {
                         if (key === 'group') {
@@ -1760,6 +1777,7 @@ function ngTableParamsFactory($q, $log, $filter, ngTableDefaults, ngTableDefault
             return _params;
         };
         function parseGroup(group) {
+            var _a;
             var defaultSort = _settings.groupOptions && _settings.groupOptions.defaultSort;
             if (!group) {
                 return group;
@@ -1779,12 +1797,10 @@ function ngTableParamsFactory($q, $log, $filter, ngTableDefaults, ngTableDefault
                 return group;
             }
             else {
-                return (_a = {},
+                return _a = {},
                     _a[group] = defaultSort,
-                    _a
-                );
+                    _a;
             }
-            var _a;
         }
         /**
          * @ngdoc method
@@ -1795,22 +1811,22 @@ function ngTableParamsFactory($q, $log, $filter, ngTableDefaults, ngTableDefault
          * @returns {Object} Current settings or `this`
          */
         this.settings = function (newSettings) {
-            if (ng1.isDefined(newSettings)) {
+            if (__WEBPACK_IMPORTED_MODULE_0_angular__["isDefined"](newSettings)) {
                 // todo: don't modify newSettings object: this introduces unexpected side effects;
                 // instead take a copy of newSettings
                 if (newSettings.filterOptions) {
-                    newSettings.filterOptions = ng1.extend({}, _settings.filterOptions, newSettings.filterOptions);
+                    newSettings.filterOptions = __WEBPACK_IMPORTED_MODULE_0_angular__["extend"]({}, _settings.filterOptions, newSettings.filterOptions);
                 }
                 if (newSettings.groupOptions) {
-                    newSettings.groupOptions = ng1.extend({}, _settings.groupOptions, newSettings.groupOptions);
+                    newSettings.groupOptions = __WEBPACK_IMPORTED_MODULE_0_angular__["extend"]({}, _settings.groupOptions, newSettings.groupOptions);
                 }
-                if (ng1.isArray(newSettings.dataset)) {
+                if (__WEBPACK_IMPORTED_MODULE_0_angular__["isArray"](newSettings.dataset)) {
                     //auto-set the total from passed in dataset
                     newSettings.total = newSettings.dataset.length;
                 }
                 var originalDataset = _settings.dataset;
-                _settings = ng1.extend(_settings, newSettings);
-                if (ng1.isArray(newSettings.dataset)) {
+                _settings = __WEBPACK_IMPORTED_MODULE_0_angular__["extend"](_settings, newSettings);
+                if (__WEBPACK_IMPORTED_MODULE_0_angular__["isArray"](newSettings.dataset)) {
                     optimizeFilterDelay();
                 }
                 // note: using != as want null and undefined to be treated the same
@@ -1902,6 +1918,7 @@ function ngTableParamsFactory($q, $log, $filter, ngTableDefaults, ngTableDefault
             }
         };
         this.group = function (group, sortDirection) {
+            var _a;
             if (group === undefined) {
                 return _params.group;
             }
@@ -1920,7 +1937,6 @@ function ngTableParamsFactory($q, $log, $filter, ngTableDefaults, ngTableDefault
             }
             this.parameters(newParameters);
             return this;
-            var _a;
         };
         /**
          * @ngdoc method
@@ -1931,6 +1947,7 @@ function ngTableParamsFactory($q, $log, $filter, ngTableDefaults, ngTableDefault
          * @returns {Object} Current sorting or `this`
          */
         this.sorting = function (sorting, direction) {
+            var _a;
             if (typeof sorting === 'string' && direction !== undefined) {
                 this.parameters({
                     'sorting': (_a = {}, _a[sorting] = direction, _a)
@@ -1940,7 +1957,6 @@ function ngTableParamsFactory($q, $log, $filter, ngTableDefaults, ngTableDefault
             return sorting !== undefined ? this.parameters({
                 'sorting': sorting
             }) : _params.sorting;
-            var _a;
         };
         this.isSortBy = function (field, direction) {
             if (direction !== undefined) {
@@ -2049,7 +2065,7 @@ function ngTableParamsFactory($q, $log, $filter, ngTableDefaults, ngTableDefault
          */
         this.isDataReloadRequired = function () {
             // note: using != as want to treat null and undefined the same
-            return !isCommittedDataset || !ng1.equals(createComparableParams(), prevParamsMemento)
+            return !isCommittedDataset || !__WEBPACK_IMPORTED_MODULE_0_angular__["equals"](createComparableParams(), prevParamsMemento)
                 || hasGlobalSearchFieldChanges();
         };
         function createComparableParams() {
@@ -2095,12 +2111,12 @@ function ngTableParamsFactory($q, $log, $filter, ngTableDefaults, ngTableDefault
         };
         this.hasFilterChanges = function () {
             var previousFilter = (prevParamsMemento && prevParamsMemento.params.filter);
-            return !ng1.equals((_params.filter), previousFilter) || hasGlobalSearchFieldChanges();
+            return !__WEBPACK_IMPORTED_MODULE_0_angular__["equals"]((_params.filter), previousFilter) || hasGlobalSearchFieldChanges();
         };
         function hasGlobalSearchFieldChanges() {
             var currentVal = (_params.filter && _params.filter['$']);
             var previousVal = (prevParamsMemento && prevParamsMemento.params.filter && prevParamsMemento.params.filter['$']);
-            return !ng1.equals(currentVal, previousVal);
+            return !__WEBPACK_IMPORTED_MODULE_0_angular__["equals"](currentVal, previousVal);
         }
         this.url = function (asString) {
             // this function is an example of Typescript gone bad!!
@@ -2117,7 +2133,7 @@ function ngTableParamsFactory($q, $log, $filter, ngTableDefaults, ngTableDefault
                             }
                         }
                     }
-                    else if (!ng1.isFunction(item) && isSignificantValue(item, key)) {
+                    else if (!__WEBPACK_IMPORTED_MODULE_0_angular__["isFunction"](item) && isSignificantValue(item, key)) {
                         collectValue(item, name);
                     }
                 }
@@ -2141,7 +2157,7 @@ function ngTableParamsFactory($q, $log, $filter, ngTableDefaults, ngTableDefault
         this.reload = function () {
             var self = this, pData = null;
             _settings.$loading = true;
-            prevParamsMemento = ng1.copy(createComparableParams());
+            prevParamsMemento = __WEBPACK_IMPORTED_MODULE_0_angular__["copy"](createComparableParams());
             isCommittedDataset = true;
             if (self.hasGroup()) {
                 pData = runInterceptorPipeline($q.when(_settings.getGroups(self)));
@@ -2168,7 +2184,7 @@ function ngTableParamsFactory($q, $log, $filter, ngTableDefaults, ngTableDefault
             });
         };
         this.hasErrorState = function () {
-            return !!(errParamsMemento && ng1.equals(errParamsMemento, createComparableParams()));
+            return !!(errParamsMemento && __WEBPACK_IMPORTED_MODULE_0_angular__["equals"](errParamsMemento, createComparableParams()));
         };
         function optimizeFilterDelay() {
             // don't debounce by default filter input when working with small synchronous datasets
@@ -2183,7 +2199,7 @@ function ngTableParamsFactory($q, $log, $filter, ngTableDefaults, ngTableDefault
             return function () {
                 var oldPages = currentPages;
                 var newPages = self.generatePagesArray(self.page(), self.total(), self.count());
-                if (!ng1.equals(oldPages, newPages)) {
+                if (!__WEBPACK_IMPORTED_MODULE_0_angular__["equals"](oldPages, newPages)) {
                     currentPages = newPages;
                     ngTableEventsChannel.publishPagesChanged(this, newPages, oldPages);
                 }
@@ -2251,7 +2267,7 @@ function ngTableParamsFactory($q, $log, $filter, ngTableDefaults, ngTableDefault
                 var gotData = $q.when(getData(params));
                 return gotData.then(function (data) {
                     var groups = {};
-                    ng1.forEach(data, function (item) {
+                    __WEBPACK_IMPORTED_MODULE_0_angular__["forEach"](data, function (item) {
                         var groupName = groupFn(item);
                         groups[groupName] = groups[groupName] || {
                             data: [],
@@ -2333,8 +2349,8 @@ function ngTableParamsFactory($q, $log, $filter, ngTableDefaults, ngTableDefault
             translations: null,
             total: 0,
             defaultSort: 'desc',
-            filterOptions: ng1.copy(defaultFilterOptions),
-            groupOptions: ng1.copy(defaultGroupOptions),
+            filterOptions: __WEBPACK_IMPORTED_MODULE_0_angular__["copy"](defaultFilterOptions),
+            groupOptions: __WEBPACK_IMPORTED_MODULE_0_angular__["copy"](defaultGroupOptions),
             counts: [10, 25, 50, 100],
             interceptors: [],
             paginationMaxBlocks: 11,
@@ -2349,31 +2365,17 @@ function ngTableParamsFactory($q, $log, $filter, ngTableDefaults, ngTableDefault
         ngTableEventsChannel.publishAfterCreated(this);
         // run events during construction after the initial create event. That way a consumer
         // can subscribe to all events for a table without "dropping" an event
-        ng1.forEach(initialEvents, function (event) {
+        __WEBPACK_IMPORTED_MODULE_0_angular__["forEach"](initialEvents, function (event) {
             event();
         });
         initialEvents = null;
         return this;
     }
 }
-exports.ngTableParamsFactory = ngTableParamsFactory;
 
 
 /***/ },
-/* 23 */
-/* unknown exports provided */
-/* all exports used */
-/*!***************************************!*\
-  !*** ./src/core/public-interfaces.ts ***!
-  \***************************************/
-/***/ function(module, exports) {
-
-"use strict";
-"use strict";
-
-
-/***/ },
-/* 24 */
+/* 22 */
 /* unknown exports provided */
 /* all exports used */
 /*!************************************!*\
@@ -2388,9 +2390,8 @@ angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 module.exports = path;
 
 /***/ },
-/* 25 */
+/* 23 */
 /* unknown exports provided */
-/* all exports used */
 /*!*****************************************!*\
   !*** ./src/browser/filters/number.html ***!
   \*****************************************/
@@ -2403,9 +2404,8 @@ angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 module.exports = path;
 
 /***/ },
-/* 26 */
+/* 24 */
 /* unknown exports provided */
-/* all exports used */
 /*!**************************************************!*\
   !*** ./src/browser/filters/select-multiple.html ***!
   \**************************************************/
@@ -2418,9 +2418,8 @@ angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 module.exports = path;
 
 /***/ },
-/* 27 */
+/* 25 */
 /* unknown exports provided */
-/* all exports used */
 /*!*****************************************!*\
   !*** ./src/browser/filters/select.html ***!
   \*****************************************/
@@ -2433,9 +2432,8 @@ angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 module.exports = path;
 
 /***/ },
-/* 28 */
+/* 26 */
 /* unknown exports provided */
-/* all exports used */
 /*!***************************************!*\
   !*** ./src/browser/filters/text.html ***!
   \***************************************/
@@ -2448,7 +2446,7 @@ angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 module.exports = path;
 
 /***/ },
-/* 29 */
+/* 27 */
 /* unknown exports provided */
 /* all exports used */
 /*!***********************************!*\
@@ -2463,9 +2461,8 @@ angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 module.exports = path;
 
 /***/ },
-/* 30 */
+/* 28 */
 /* unknown exports provided */
-/* all exports used */
 /*!*********************************!*\
   !*** ./src/browser/header.html ***!
   \*********************************/
@@ -2478,9 +2475,8 @@ angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 module.exports = path;
 
 /***/ },
-/* 31 */
+/* 29 */
 /* unknown exports provided */
-/* all exports used */
 /*!********************************!*\
   !*** ./src/browser/pager.html ***!
   \********************************/
@@ -2493,7 +2489,7 @@ angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 module.exports = path;
 
 /***/ },
-/* 32 */
+/* 30 */
 /* unknown exports provided */
 /* all exports used */
 /*!************************************!*\
@@ -2508,8 +2504,8 @@ angular.module('ng').run(['$templateCache', function(c) { c.put(path, html) }]);
 module.exports = path;
 
 /***/ },
-/* 33 */
-/* unknown exports provided */
+/* 31 */
+/* exports provided: ngTable */
 /* all exports used */
 /*!******************!*\
   !*** ./index.ts ***!
@@ -2517,21 +2513,24 @@ module.exports = path;
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-"use strict";
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
-var ng1 = __webpack_require__(/*! angular */ 0);
-var core_1 = __webpack_require__(/*! ./src/core */ 2);
-var browser_1 = __webpack_require__(/*! ./src/browser */ 1);
-var ngTable = ng1.module('ngTable', [core_1.default.name, browser_1.default.name]);
-exports.ngTable = ngTable;
-__export(__webpack_require__(/*! ./src/core */ 2));
-__export(__webpack_require__(/*! ./src/browser */ 1));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(/*! angular */ 0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_core__ = __webpack_require__(/*! ./src/core */ 2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__src_browser__ = __webpack_require__(/*! ./src/browser */ 1);
+Object.defineProperty(exports, "__esModule", { value: true });
+/* empty harmony namespace reexport */
+/* empty harmony namespace reexport */
+/* harmony export (binding) */ __webpack_require__.d(exports, "ngTable", function() { return ngTable; });
+
+
+
+var ngTable = __WEBPACK_IMPORTED_MODULE_0_angular__["module"]('ngTable', [__WEBPACK_IMPORTED_MODULE_1__src_core__["a" /* default */].name, __WEBPACK_IMPORTED_MODULE_2__src_browser__["a" /* default */].name]);
+
+
+
 
 
 /***/ }
-/******/ ])
+/******/ ]);
 });
-;
 //# sourceMappingURL=ng-table.js.map

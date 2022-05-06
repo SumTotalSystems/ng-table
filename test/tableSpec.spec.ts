@@ -357,10 +357,11 @@ describe('ng-table', () => {
             $compile(elm)(scope);
 
             var actualSort: ISortingValues;
+            
             scope.tableParams = createNgTableParams<IPerson>({
                 sorting: { age: 'desc' }
             }, {
-                    getData: function (params) {
+                    getData: function (params: INgTableParams<IPerson>) {
                         actualSort = params.sorting();
                         let results: IPerson[] = [];
                         return results;
@@ -972,16 +973,21 @@ describe('ng-table', () => {
             }));
 
             it('should not render group row until group assigned', () => {
+                expect(tp.hasGroup()).toBeFalsy();
+                var groupRowExists = elm.find('thead').children("tr:first").hasClass("ng-table-group-header");
+                expect(groupRowExists).toBeFalsy();
+
                 var groupRow = elm.find('thead').find('.ng-table-group-header');
                 expect(groupRow.length).toBe(0);
             });
 
-            xit('should render group row once group assigned', () => {
+            it('should render group row once group assigned', () => {
                 // todo: not sure why this test is not working as manually testing shows that it does :-(
                 tp.group('name');
                 scope.$digest();
-                var groupRow = elm.find('thead').find('.ng-table-group-header');
-                expect(groupRow.length).toBe(1);
+                expect(tp.hasGroup()).toBeTruthy();
+                var groupRowExists = elm.find('thead').children("tr:first").hasClass("ng-table-group-header");
+                expect(groupRowExists).toBeTruthy();
             });
         });
     });
@@ -1121,7 +1127,7 @@ describe('ng-table', () => {
 
             // when
             tp.filter({ age: 5 });
-            tp.reload();
+            tp.reload().catch(ng1.noop);
             scope.$digest();
 
             // then

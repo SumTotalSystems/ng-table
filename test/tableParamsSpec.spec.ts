@@ -1,5 +1,6 @@
 import { IControllerService, IQService, IScope } from 'angular';
 import * as ng1 from 'angular';
+import * as _ from 'lodash';
 import {
     IDataRowGroup, IDefaultGetData, IDefaults, IEventsChannel, IGroupingFunc, IGroupValues, InternalTableParams,
     INgTableParams, IPageButton, IParamValues, ISettings, ITableParamsConstructor,
@@ -368,7 +369,7 @@ describe('NgTableParams', () => {
         it('changing settings().dataset should reset page to 1', () => {
             // given
             var tableParams = createNgTableParams({ count: 1, page: 2 }, { dataset: [1, 2, 3] });
-            tableParams.reload();
+            tableParams.reload().catch(ng1.noop);
             scope.$digest();
             expect(tableParams.page()).toBe(2); // checking assumptions
 
@@ -419,14 +420,14 @@ describe('NgTableParams', () => {
 
         it('should call getData to retrieve data', () => {
             var tp = createNgTableParams();
-            tp.reload();
+            tp.reload().catch(ng1.noop);
             scope.$digest();
             expect((tp.settings().getData as jasmine.Spy).calls.count()).toBe(1);
         });
 
         it('should add the results returned by getData to the data field', () => {
             var tp = createNgTableParams({ getData: () => [1, 2, 3] });
-            tp.reload();
+            tp.reload().catch(ng1.noop);
             scope.$digest();
             expect(tp.data).toEqual([1, 2, 3]);
         });
@@ -436,7 +437,7 @@ describe('NgTableParams', () => {
             var tp = createNgTableParams();
 
             // when
-            tp.reload();
+            tp.reload().catch(ng1.noop);
             scope.$digest();
 
             // then
@@ -1046,7 +1047,7 @@ describe('NgTableParams', () => {
         });
 
         it('should return false once reload called after construction', () => {
-            tp.reload();
+            tp.reload().catch(ng1.noop);
             // note: we don't have to wait for the getData promise to be resolved before considering reload
             // to be unnecessary - that's why we're not having to run a $digest
             expect(tp.isDataReloadRequired()).toBe(false);
@@ -1054,14 +1055,14 @@ describe('NgTableParams', () => {
 
         it('should return false when getData fails', inject(($q: IQService) => {
             tp.settings({ getData: () => $q.reject('bad response') });
-            tp.reload();
+            tp.reload().catch(ng1.noop);
             scope.$digest();
             expect(tp.isDataReloadRequired()).toBe(false);
         }));
 
         it('should detect direct changes to parameters', inject(($q: IQService) => {
             // given
-            tp.reload();
+            tp.reload().catch(ng1.noop);
             scope.$digest();
             expect(tp.isDataReloadRequired()).toBe(false); // checking assumptions
 
@@ -1072,7 +1073,7 @@ describe('NgTableParams', () => {
 
         it('should return true until changed parameters have been reloaded', () => {
             // given
-            tp.reload();
+            tp.reload().catch(ng1.noop);
             scope.$digest();
 
             // when, then...
@@ -1092,7 +1093,7 @@ describe('NgTableParams', () => {
 
         it('should return true when `$` field on `filter` changes', () => {
             // given
-            tp.reload();
+            tp.reload().catch(ng1.noop);
             scope.$digest();
             expect(tp.isDataReloadRequired()).toBe(false); // checking assumptions
 
@@ -1103,7 +1104,7 @@ describe('NgTableParams', () => {
 
         it('should return true when group function sort direction changes', () => {
             // given
-            tp.reload();
+            tp.reload().catch(ng1.noop);
             scope.$digest();
             expect(tp.isDataReloadRequired()).toBe(false); // checking assumptions
 
@@ -1113,7 +1114,7 @@ describe('NgTableParams', () => {
             tp.group(grouper);
             expect(tp.isDataReloadRequired()).toBe(true);
 
-            tp.reload();
+            tp.reload().catch(ng1.noop);
             scope.$digest();
             expect(tp.isDataReloadRequired()).toBe(false);
 
@@ -1124,7 +1125,7 @@ describe('NgTableParams', () => {
         it('should return false when parameters "touched" but not modified', () => {
             // given
             tp.filter({ age: 1 });
-            tp.reload();
+            tp.reload().catch(ng1.noop);
             scope.$digest();
 
             // when, then...
@@ -1134,7 +1135,7 @@ describe('NgTableParams', () => {
 
         it('should return true when new settings dataset array supplied', () => {
             // given
-            tp.reload();
+            tp.reload().catch(ng1.noop);
             scope.$digest();
 
             verifyIsDataReloadRequired(() => {
@@ -1145,7 +1146,7 @@ describe('NgTableParams', () => {
         it('should return true when existing settings dataset array is unset', () => {
             // given
             tp = createNgTableParams({ dataset: [1, 2, 3] });
-            tp.reload();
+            tp.reload().catch(ng1.noop);
             scope.$digest();
 
             verifyIsDataReloadRequired(() => {
@@ -1156,7 +1157,7 @@ describe('NgTableParams', () => {
         it('status should not change when settings called without a dataset array', () => {
             // given
             tp = createNgTableParams({ dataset: [1, 2, 3] });
-            tp.reload();
+            tp.reload().catch(ng1.noop);
             scope.$digest();
 
             // when, then...
@@ -1168,7 +1169,7 @@ describe('NgTableParams', () => {
         function verifyIsDataReloadRequired(modifer: Function) {
             modifer();
             expect(tp.isDataReloadRequired()).toBe(true);
-            tp.reload();
+            tp.reload().catch(ng1.noop);
             scope.$digest();
             expect(tp.isDataReloadRequired()).toBe(false);
         }
@@ -1186,7 +1187,7 @@ describe('NgTableParams', () => {
         });
 
         it('should return false once reload called after construction', () => {
-            tp.reload();
+            tp.reload().catch(ng1.noop);
             // note: we don't have to wait for the getData promise to be resolved before considering reload
             // to be unnecessary - that's why we're not having to run a $digest
             expect(tp.hasFilterChanges()).toBe(false);
@@ -1194,14 +1195,14 @@ describe('NgTableParams', () => {
 
         it('should return true when getData fails', inject(($q: IQService) => {
             tp.settings({ getData: () => $q.reject('bad response') });
-            tp.reload();
+            tp.reload().catch(ng1.noop);
             scope.$digest();
             expect(tp.hasFilterChanges()).toBe(false);
         }));
 
         it('should detect direct changes to filters', inject(($q: IQService) => {
             // given
-            tp.reload();
+            tp.reload().catch(ng1.noop);
             scope.$digest();
             expect(tp.hasFilterChanges()).toBe(false); // checking assumptions
 
@@ -1212,7 +1213,7 @@ describe('NgTableParams', () => {
 
         it('should return true when `$` field on `filter` changes', () => {
             // given
-            tp.reload();
+            tp.reload().catch(ng1.noop);
             scope.$digest();
             expect(tp.hasFilterChanges()).toBe(false); // checking assumptions
 
@@ -1223,13 +1224,13 @@ describe('NgTableParams', () => {
 
         it('should return true until changed filters have been reloaded', () => {
             // given
-            tp.reload();
+            tp.reload().catch(ng1.noop);
             scope.$digest();
 
             // when, then...
             tp.filter({ age: 1 });
             expect(tp.hasFilterChanges()).toBe(true);
-            tp.reload();
+            tp.reload().catch(ng1.noop);
             scope.$digest();
             expect(tp.hasFilterChanges()).toBe(false);
         });
@@ -1237,7 +1238,7 @@ describe('NgTableParams', () => {
         it('should return false when filters "touched" but not modified', () => {
             // given
             tp.filter({ age: 1 });
-            tp.reload();
+            tp.reload().catch(ng1.noop);
             scope.$digest();
 
             // when, then...
@@ -1247,7 +1248,7 @@ describe('NgTableParams', () => {
 
         it('status should not change just because new settings dataset array supplied', () => {
             // given
-            tp.reload();
+            tp.reload().catch(ng1.noop);
             scope.$digest();
 
             // when, then...
@@ -1272,13 +1273,13 @@ describe('NgTableParams', () => {
             });
 
             // when, then
-            tp.reload();
+            tp.reload().catch(ng1.noop);
             scope.$digest();
             expect(tp.hasErrorState()).toBe(false);
-            tp.reload();
+            tp.reload().catch(ng1.noop);
             scope.$digest();
             expect(tp.hasErrorState()).toBe(false);
-            tp.reload();
+            tp.reload().catch(ng1.noop);
             scope.$digest();
             expect(tp.hasErrorState()).toBe(true);
         }));
@@ -1288,7 +1289,7 @@ describe('NgTableParams', () => {
             tp = createNgTableParams({ getData: () => $q.reject('bad response') });
 
             // when, then
-            tp.reload();
+            tp.reload().catch(ng1.noop);
             scope.$digest();
             expect(tp.hasErrorState()).toBe(true);
             tp.filter({ age: 598 });
@@ -1333,7 +1334,7 @@ describe('NgTableParams', () => {
                 var tp = createNgTableParams({ interceptors: [interceptor] });
 
                 // when
-                tp.reload();
+                tp.reload().catch(ng1.noop);
                 scope.$digest();
 
                 // then
@@ -1427,7 +1428,7 @@ describe('NgTableParams', () => {
                 });
 
                 // when
-                tp.reload();
+                tp.reload().catch(ng1.noop);
                 scope.$digest();
 
                 // then
@@ -1516,7 +1517,7 @@ describe('NgTableParams', () => {
                 var tp = createNgTableParams({ interceptors: [interceptor] });
 
                 // when
-                tp.reload();
+                tp.reload().catch(ng1.noop);
                 scope.$digest();
 
                 // then
@@ -1541,7 +1542,7 @@ describe('NgTableParams', () => {
                 });
 
                 // when
-                tp.reload();
+                tp.reload().catch(ng1.noop);
                 scope.$digest();
 
                 // then
@@ -1565,7 +1566,7 @@ describe('NgTableParams', () => {
                 var tp = createNgTableParams({ interceptors: interceptors });
 
                 // when
-                tp.reload();
+                tp.reload().catch(ng1.noop);
                 scope.$digest();
 
                 // then
@@ -1611,7 +1612,7 @@ describe('NgTableParams', () => {
                 var tp = createNgTableParams({ interceptors: [badInterceptor, nextInterceptor] });
 
                 // when
-                tp.reload();
+                tp.reload().catch(ng1.noop);
                 scope.$digest();
 
                 // then
@@ -1637,7 +1638,7 @@ describe('NgTableParams', () => {
                 var tp = createNgTableParams({ interceptors: [badInterceptor, recoveringInterceptor, nextInterceptor] });
 
                 // when
-                tp.reload();
+                tp.reload().catch(ng1.noop);
                 scope.$digest();
 
                 // then
@@ -1935,7 +1936,7 @@ describe('NgTableParams', () => {
                 var params = createNgTableParams({ getData: () => newDatapage });
 
                 // when
-                params.reload();
+                params.reload().catch(ng1.noop);
                 scope.$digest();
 
                 // then
@@ -1953,9 +1954,9 @@ describe('NgTableParams', () => {
                 var params = createNgTableParams({ getData: () => dataPage });
 
                 // when
-                params.reload();
+                params.reload().catch(ng1.noop);
                 scope.$digest();
-                params.reload();
+                params.reload().catch(ng1.noop);
                 scope.$digest();
 
                 // then
@@ -1974,7 +1975,7 @@ describe('NgTableParams', () => {
 
                 // when
                 var params = createNgTableParams({}, { dataset: [1, 2, 3, 4, 5, 6] });
-                params.reload();
+                params.reload().catch(ng1.noop);
                 scope.$digest();
 
                 // then
@@ -1995,7 +1996,7 @@ describe('NgTableParams', () => {
                 var params = createNgTableParams({ count: 5 }, { counts: [5, 10], dataset: [1, 2, 3, 4, 5, 6] });
 
                 // when
-                params.reload();
+                params.reload().catch(ng1.noop);
                 scope.$digest();
 
                 // then
@@ -2013,7 +2014,7 @@ describe('NgTableParams', () => {
                 var params = createNgTableParams({ count: 5 }, { counts: [5, 10], dataset: [] });
 
                 // when
-                params.reload();
+                params.reload().catch(ng1.noop);
                 scope.$digest();
 
                 // then
@@ -2029,10 +2030,10 @@ describe('NgTableParams', () => {
                 var params = createNgTableParams({ count: 5 }, { counts: [5, 10], dataset: [1, 2, 3, 4, 5, 6] });
 
                 // when
-                params.reload();
+                params.reload().catch(ng1.noop);
                 scope.$digest();
                 params.page(2); // trigger a change to pages data structure
-                params.reload();
+                params.reload().catch(ng1.noop);
                 scope.$digest();
 
                 // then
@@ -2046,11 +2047,11 @@ describe('NgTableParams', () => {
                     callCount++;
                 });
                 var params = createNgTableParams({ count: 5 }, { counts: [5, 10], dataset: [1, 2, 3, 4, 5, 6] });
-                params.reload();
+                params.reload().catch(ng1.noop);
                 scope.$digest();
 
                 // when
-                params.reload();
+                params.reload().catch(ng1.noop);
                 scope.$digest();
 
                 // then
@@ -2069,7 +2070,7 @@ describe('NgTableParams', () => {
 
                 // when
                 var params = createNgTableParams({ count: 5 }, { counts: [5, 10], dataset: [1, 2, 3, 4, 5, 6] });
-                params.reload();
+                params.reload().catch(ng1.noop);
                 scope.$digest();
 
                 // then

@@ -1,10 +1,10 @@
 {
   "mode": "file",
-  "out": "docs",
+  "out": "demo-site/api-docs",
   "exclude": "node_modules",
   "theme": "default",
   "ignoreCompilerErrors": "true",
-  "includeDeclarations": "true",
+  "includeDeclarations": "false",
   "experimentalDecorators": "true",
   "emitDecoratorMetadata": "true",
   "target": "ES6",
@@ -13,5 +13,7 @@
   "stripInternal": "true",
   "suppressExcessPropertyErrors": "true",
   "suppressImplicitAnyIndexErrors": "true",
-  "module": "umd"
+  "module": "umd",
+  "readme": "none",
+  "name": "ngTable API Reference"
 }

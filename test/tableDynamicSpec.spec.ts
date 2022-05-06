@@ -1,5 +1,6 @@
 import { IAugmentedJQuery, ICompileService, IQService, IScope } from 'angular';
 import * as ng1 from 'angular';
+import * as _ from 'lodash';
 import { ngTable } from '../index';
 import { INgTableParams, ITableParamsConstructor } from '../src/core';
 import { ColumnFieldContext, DynamicTableColField, IDynamicTableColDef, IFilterTemplateDefMap, ISelectOption } from '../src/browser';

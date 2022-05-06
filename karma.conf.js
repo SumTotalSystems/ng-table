@@ -5,7 +5,7 @@ var debug = process.env.npm_lifecycle_event === 'test:debug'
 const webpackConfig = require('./webpack.config')({ test: true, noCoverage: debug });
 
 module.exports = function (config) {
-    let reporters = ['dots', 'spec'];
+    let reporters = ['jasmine-diff', 'dots', 'spec'];
     if (!debug) {
         reporters.push('coverage');
     }
@@ -17,7 +17,7 @@ module.exports = function (config) {
         // list of files / patterns to load in the browser
         files: [
             // libraries
-            'node_modules/lodash/index.js',
+            'node_modules/lodash/lodash.js',
             'node_modules/angular/angular.js',
             'node_modules/angular-mocks/angular-mocks.js',
             testGlob
