@@ -34,9 +34,6 @@ ngTableSorterRowController.$inject = ['$scope'];
 export function ngTableSorterRowController<T>($scope: ITableScope<T> & IScopeExtensions) {
 
     $scope.sortBy = sortBy;
-        
-    // Sets default sort description to cater for parsed sort orders
-    setDefaultSortDescription();
 
     ///////////    
 
@@ -53,22 +50,6 @@ export function ngTableSorterRowController<T>($scope: ITableScope<T> & IScopeExt
             $scope.params.parameters({
                 sorting: sortingParams
             });
-            
-            $scope.$columns.forEach(function(col){
-                if(col.id == $column.id){                    
-                    var newDesc = '';
-                    if((sorting ? inverseSort : defaultSort) === 'asc'){
-                        newDesc = $scope.params.accessibilityOptions('sortDescriptionDesc');
-                    }
-                    else{
-                        newDesc = $scope.params.accessibilityOptions('sortDescriptionAsc');
-                    }
-                    (<any>col.sortDescription).assign($scope, newDesc);
-                }      
-                else {
-                    (<any>col.sortDescription).assign($scope, $scope.params.accessibilityOptions('sortDescriptionDesc'));
-                }                         
-            });
 
             $scope.sortLive = JSON.parse(JSON.stringify(sortingParams));
             
@@ -83,22 +64,5 @@ export function ngTableSorterRowController<T>($scope: ITableScope<T> & IScopeExt
     function resetSortLive(parsedSortable: any) {
         $scope.sortLive = {};
         $scope.$apply();
-    }
-    
-    function setDefaultSortDescription() {
-        $scope.$columns.forEach(function(col){
-            var sortable = col.sortable();
-            if (sortable || typeof sortable === 'string') {
-                var sortDirection = $scope.params.sorting()[sortable.toString()];
-                var desc = '';
-                if(sortDirection === 'desc') {
-                    desc = $scope.params.accessibilityOptions('sortDescriptionAsc');
-                }
-                else {
-                    desc = $scope.params.accessibilityOptions('sortDescriptionDesc');
-                }
-                (<any>col.sortDescription).assign($scope, desc);
-            }                    
-        });
     }
 }
