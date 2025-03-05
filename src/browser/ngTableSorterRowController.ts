@@ -50,10 +50,10 @@ export function ngTableSorterRowController<T>($scope: ITableScope<T> & IScopeExt
             $scope.params.parameters({
                 sorting: sortingParams
             });
-
-            $scope.sortLive = JSON.parse(JSON.stringify(sortingParams));
-            
-            $scope.sortLive[parsedSortable] = $scope.params.accessibilityOptions('sortedLive');	
+            // Update sortLive with a meaningful message
+            $scope.sortLive[parsedSortable] = sortingParams[parsedSortable] === 'asc' ? 'Sorted ascending' : 'Sorted descending';
+            // Ensure AngularJS detects the change
+            $scope.$applyAsync();
 
             setTimeout(() => {
                 resetSortLive(parsedSortable);		
